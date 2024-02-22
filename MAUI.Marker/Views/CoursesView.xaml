@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MAUI.Marker.Views.CoursesView"
+             Title="CoursesView">
+    <VerticalStackLayout>
+        <ListView x:Name="CoursesListView" ItemsSource="{Binding CoursesViewModel}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextCell Text="{Binding Courses}" />
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <Button Text="Add Course" Clicked="AddCourses_Clicked" />
+    </VerticalStackLayout>
+</ContentPage>
