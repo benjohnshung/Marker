@@ -65,15 +65,21 @@
 		<ProjectReference Include="..\Library.Marker\Library.Marker.csproj" />
 	</ItemGroup>
 	<ItemGroup>
-	  <Compile Update="Views\AddCourseView.xaml.cs">
-	    <DependentUpon>AddCourseView.xaml</DependentUpon>
+	  <Compile Update="Views\CourseAddEditView.xaml.cs">
+	    <DependentUpon>CourseAddEditView.xaml</DependentUpon>
 	  </Compile>
 	</ItemGroup>
 	<ItemGroup>
-	  <MauiXaml Update="Views\AddCourseView.xaml">
+	  <MauiXaml Update="Views\CourseAddEditView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\CoursesView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\InstructorView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\StudentView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>

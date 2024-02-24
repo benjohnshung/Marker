@@ -10,10 +10,17 @@
 
 
             <Button
-                x:Name="CoursesBtn"
-                Text="Courses" 
-                SemanticProperties.Hint="Changes view to view list of Courses"
-                Clicked="CoursesBtn_Clicked"
+                x:Name="InstructorViewButton"
+                Text="Instructor View" 
+                SemanticProperties.Hint="Changes to Instructor View"
+                Clicked="InstructorViewButtonClicked"
+                HorizontalOptions="Fill" />
+
+            <Button
+                x:Name="StudentViewButton"
+                Text="Student View"
+                SemanticProperties.Hint="Changes to Student View"
+                Clicked="StudentViewButtonClicked"
                 HorizontalOptions="Fill" />
         </VerticalStackLayout>
     </ScrollView>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MAUI.Marker.Views.InstructorView">
+
+    <ScrollView>
+        <VerticalStackLayout
+            Padding="30,0"
+            Spacing="25">
+
+
+            <Button
+                x:Name="CoursesButton"
+                Text="Courses" 
+                SemanticProperties.Hint="Changes view to view list of Courses"
+                Clicked="CoursesButtonClicked"
+                HorizontalOptions="Fill" />
+
+			<Button
+	            x:Name="StudentsButton"
+	            Text="Students"
+	            SemanticProperties.Hint="Changes view to view list of Students"
+	            Clicked="StudentsButtonClicked"
+	            HorizontalOptions="Fill" />
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

@@ -2,17 +2,17 @@
 
 namespace MAUI.Marker.Views;
 
-public partial class AddCourseView : ContentPage
+public partial class CourseAddEditView : ContentPage
 {
-    public AddCourseView()
+    public CourseAddEditView()
     {
         InitializeComponent();
-        BindingContext = new AddCourseViewModel();
+        BindingContext = new CourseAddEditViewModel();
     }
 
     private void OkClicked(object sender, EventArgs e)
     {
-        (BindingContext as AddCourseViewModel).AddCourse(Shell.Current);
+        (BindingContext as CourseAddEditViewModel)?.AddCourse(Shell.Current);
     }
 
     private void CancelClicked(object sender, EventArgs e)

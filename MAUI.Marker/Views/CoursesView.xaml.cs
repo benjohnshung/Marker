@@ -9,16 +9,28 @@ public partial class CoursesView : ContentPage
         BindingContext = new CoursesViewModel();
     }
     
-    private void ListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+    private void AddCourseClicked(object sender, EventArgs e)
     {
-        if (e.SelectedItem != null)
-        {
-            Shell.Current.GoToAsync($"//CourseDetail?code={((Course)e.SelectedItem).Code}");
-            (BindingContext as CoursesViewModel).ListCourses(Shell.Current);
-        }
+        Shell.Current.GoToAsync("//CourseAddEdit");
     }
-    private void AddCourses_Clicked(object sender, EventArgs e)
+
+    private void EditCourseClicked(object sender, EventArgs e)
     {
-        Shell.Current.GoToAsync("//AddCourse");
+        //Shell.Current.GoToAsync("//AddCourse");
+    }
+    private void RemoveCourseClicked(object sender, EventArgs e)
+    {
+        //Shell.Current.GoToAsync("//AddCourse");
+    }
+
+    private void BackClicked(object sender, EventArgs e)
+    {
+        Shell.Current.GoToAsync("//InstructorView");
+    }
+
+    private void ContentPage_NavigatedTo(object sender, NavigatedToEventArgs e)
+    {
+        (BindingContext as CoursesViewModel).ResetView();
+        (BindingContext as CoursesViewModel).RefreshView();
     }
 }

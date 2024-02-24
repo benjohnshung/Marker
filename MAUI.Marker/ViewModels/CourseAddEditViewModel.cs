@@ -3,9 +3,9 @@ using Library.Marker.Services;
 
 namespace MAUI.Marker.ViewModels
 {
-    class AddCourseViewModel
+    class CourseAddEditViewModel
     {
-        public AddCourseViewModel()
+        public CourseAddEditViewModel()
         {
             course = new Course();
         }

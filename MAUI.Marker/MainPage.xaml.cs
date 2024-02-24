@@ -10,9 +10,14 @@ namespace MAUI.Marker
             BindingContext = new MainViewModel();
         }
 
-        private void CoursesBtn_Clicked(object sender, EventArgs e)
+        private void InstructorViewButtonClicked(object sender, EventArgs e)
         {
-            Shell.Current.GoToAsync("//Courses");
+            Shell.Current.GoToAsync("//InstructorView");
+        }
+
+        private void StudentViewButtonClicked(object sender, EventArgs e)
+        {
+            Shell.Current.GoToAsync("//StudentView");
         }
     }
 

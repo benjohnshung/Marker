@@ -2,15 +2,36 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MAUI.Marker.Views.CoursesView"
-             Title="CoursesView">
-    <VerticalStackLayout>
-        <ListView x:Name="CoursesListView" ItemsSource="{Binding CoursesViewModel}">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <TextCell Text="{Binding Courses}" />
-                </DataTemplate>
-            </ListView.ItemTemplate>
+             Title="CoursesView"
+             NavigatedTo="ContentPage_NavigatedTo">
+    <VerticalStackLayout            
+            Padding="30,0"
+            Spacing="25">
+        <Label 
+                Text="University Course List"
+                VerticalOptions="Center" 
+                HorizontalOptions="Center" />
+        <ListView
+                ItemsSource="{Binding Courses}"
+                SelectedItem="{Binding SelectedCourse}">
         </ListView>
-        <Button Text="Add Course" Clicked="AddCourses_Clicked" />
+        <Button 
+                Text="Add Course"
+                Clicked="AddCourseClicked"
+                />
+        <Button
+                Text="Edit Course"
+                Clicked="EditCourseClicked"
+                />
+        <Button
+                Text="Remove Course"
+                Clicked="RemoveCourseClicked"
+                />
+
+        <Button
+	            Text="Back"
+	            SemanticProperties.Hint="Returns to Instructor View"
+	            Clicked="BackClicked"
+	            HorizontalOptions="Fill" />
     </VerticalStackLayout>
 </ContentPage>

@@ -1,18 +1,52 @@
 ﻿using Library.Marker.Models;
 using Library.Marker.Services;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace MAUI.Marker.ViewModels
 {
-    class CoursesViewModel
+    public class CoursesViewModel : INotifyPropertyChanged
     {
         public CoursesViewModel() {
-            List<Course>? Courses = new List<Course>();
+            IsCoursesVisible = true;
+        }
+        public bool IsCoursesVisible
+        {
+            get; set;
         }
 
-        private Course course;
-        public void ListCourses(Shell s)
+        public ObservableCollection<Course> Courses
         {
-            CourseService.Current.List();
+            get
+            {
+                return new ObservableCollection<Course>(CourseService.Current.Courses);
+            }
+        }
+        public void ShowCourses()
+        {
+            IsCoursesVisible = true;
+            NotifyPropertyChanged("IsCoursesVisible");
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public void ResetView()
+        {
+            //Query = string.Empty;
+            //NotifyPropertyChanged(nameof(Query));
+        }
+
+        public void RefreshView()
+        {
+
+            //NotifyPropertyChanged(nameof(People));
+            NotifyPropertyChanged(nameof(Courses));
         }
     }
 }
