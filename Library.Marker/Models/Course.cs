@@ -18,7 +18,12 @@ namespace Library.Marker.Models
 
         public Course()
         {
-
+            Code = string.Empty;
+            Name = string.Empty;
+            Description = string.Empty;
+            Roster = new List<Person>();
+            Assignments = new List<Assignment>();
+            Modules = new List<Module>();
         }
 
         public override string ToString()

@@ -21,7 +21,7 @@
                 />
         <Button
                 Text="Edit Course"
-                Clicked="EditCourseClickedAsync"
+                Clicked="EditCourseClicked"
                 />
         <Button
                 Text="Remove Course"

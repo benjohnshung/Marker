@@ -9,6 +9,9 @@ namespace MAUI.Marker.ViewModels
         {
             course = new Course();
         }
+
+        private Course course;
+
         public string Code
         {
             get => course?.Code ?? string.Empty;
@@ -25,11 +28,29 @@ namespace MAUI.Marker.ViewModels
             set { if (course != null) course.Description = value; }
         }
 
-        private Course course;
+        public void ifEdit(string edit, string code)
+        {
+            if (edit == "true")
+            {
+                course = (Course)CourseService.Current.Search(code);
+            }
+        }
 
         public void AddCourse(Shell s)
         {
-            CourseService.Current.Add(course);
+            Course newCourse = new Course
+            {
+                Code = this.Code,
+                Name = this.Name,
+                Description = this.Description
+            };
+            CourseService.Current.Add(newCourse);
+            s.GoToAsync("//Courses");
+        }
+
+        public void EditCourse(Shell s)
+        {
+            CourseService.Current.Update(course);
             s.GoToAsync("//Courses");
         }
     }

@@ -1,10 +1,11 @@
 ﻿using Library.Marker.Models;
+using Library.Marker.Database;
+using System.Diagnostics;
 
 namespace Library.Marker.Services
 {
     public class CourseService
     {
-        private IList<Course> courses;
         private string? query;
         private static object _lock = new object();
         private static CourseService? instance;
@@ -23,40 +24,48 @@ namespace Library.Marker.Services
                 return instance;
             }
         }
-        public IEnumerable<Course> Courses
-        {
-            get
-            {
-                return courses.Where(
-                    c =>
-                    (c.Name ?? string.Empty).ToUpper().Contains(query ?? string.Empty)
-                    || (c.Code ?? string.Empty).ToUpper().Contains(query ?? string.Empty));
-            }
-        }
+
 
         private CourseService()
         {
-            courses = new List<Course>();
+
+        }
+
+        public List<Course> Courses
+        {
+            get
+            {
+                return FakeDatabase.Courses;
+            }
         }
 
         public IEnumerable<Course> Search(string query)
         {
-            this.query = query;
-            return Courses;
+            return Courses.Where(Courses =>
+                           (Courses.Name ?? string.Empty).ToUpper().Contains(query ?? string.Empty) ||
+                                          (Courses.Code ?? string.Empty).ToUpper().Contains(query ?? string.Empty) ||
+                                                         (Courses.Description ?? string.Empty).ToUpper().Contains(query ?? string.Empty));
         }
+
+
         public void Add(Course courseToAdd)
         {
-            courses.Add(courseToAdd);
+            FakeDatabase.Courses.Add(courseToAdd);
         }
         public void Delete(Course courseToDelete)
         {
-            courses.Remove(courseToDelete);
-        }
-        public void List()
-        {
-            int count = 0;
-            courses.ToList().ForEach(c => Console.WriteLine($"{++count}. {c}"));
+            FakeDatabase.Courses.Remove(courseToDelete);
         }
 
+        public void Update(Course courseToUpdate)
+        {
+            var course = FakeDatabase.Courses.FirstOrDefault(c => c.Code == courseToUpdate.Code);
+            if (course != null)
+            {
+                course.Code = courseToUpdate.Code;
+                course.Name = courseToUpdate.Name;
+                course.Description = courseToUpdate.Description;
+            }
+        }
     }
 }

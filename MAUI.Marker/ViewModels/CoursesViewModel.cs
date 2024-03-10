@@ -29,6 +29,8 @@ namespace MAUI.Marker.ViewModels
             NotifyPropertyChanged("IsCoursesVisible");
         }
 
+        public Course SelectedCourse { get; set; }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
