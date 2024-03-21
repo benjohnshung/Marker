@@ -74,8 +74,8 @@ namespace Library.Marker.Services
             if (courseToAdd.Id <= 0)
             {
                 courseToAdd.Id = LastId + 1;
+                FakeDatabase.Courses.Add(courseToAdd);
             }
-            FakeDatabase.Courses.Add(courseToAdd);
         }
         public void Delete(Course courseToDelete)
         {
