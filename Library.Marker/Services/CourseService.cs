@@ -6,9 +6,25 @@ namespace Library.Marker.Services
 {
     public class CourseService
     {
+        private int LastId
+        {
+            get
+            {
+                if (Courses.Count() == 0)
+                {
+                    return 0;
+                }
+                else
+                {
+                    return Courses.Select(c => c.Id).Max();
+                }
+            }
+        }
+
         private string? query;
         private static object _lock = new object();
         private static CourseService? instance;
+
         public static CourseService Current
         {
             get
@@ -31,8 +47,15 @@ namespace Library.Marker.Services
 
         }
 
-        public List<Course> Courses
+        public IEnumerable<Course> Courses
         {
+            //get
+            //{
+            //    return Courses.Where(c =>
+            //               (c.Name ?? string.Empty).ToUpper().Contains(query ?? string.Empty) ||
+            //                              (c.Code ?? string.Empty).ToUpper().Contains(query ?? string.Empty) ||
+            //                                             (c.Description ?? string.Empty).ToUpper().Contains(query ?? string.Empty));
+            //}
             get
             {
                 return FakeDatabase.Courses;
@@ -41,15 +64,17 @@ namespace Library.Marker.Services
 
         public IEnumerable<Course> Search(string query)
         {
-            return Courses.Where(Courses =>
-                           (Courses.Name ?? string.Empty).ToUpper().Contains(query ?? string.Empty) ||
-                                          (Courses.Code ?? string.Empty).ToUpper().Contains(query ?? string.Empty) ||
-                                                         (Courses.Description ?? string.Empty).ToUpper().Contains(query ?? string.Empty));
+            this.query = query;
+            return Courses;
         }
 
 
-        public void Add(Course courseToAdd)
+        public void AddOrUpdate(Course courseToAdd)
         {
+            if (courseToAdd.Id <= 0)
+            {
+                courseToAdd.Id = LastId + 1;
+            }
             FakeDatabase.Courses.Add(courseToAdd);
         }
         public void Delete(Course courseToDelete)
@@ -57,15 +82,9 @@ namespace Library.Marker.Services
             FakeDatabase.Courses.Remove(courseToDelete);
         }
 
-        public void Update(Course courseToUpdate)
+        public Course? Get(int id)
         {
-            var course = FakeDatabase.Courses.FirstOrDefault(c => c.Code == courseToUpdate.Code);
-            if (course != null)
-            {
-                course.Code = courseToUpdate.Code;
-                course.Name = courseToUpdate.Name;
-                course.Description = courseToUpdate.Description;
-            }
+            return FakeDatabase.Courses.FirstOrDefault(c => c.Id == id);
         }
     }
 }

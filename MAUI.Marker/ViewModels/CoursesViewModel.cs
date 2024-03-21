@@ -46,9 +46,8 @@ namespace MAUI.Marker.ViewModels
 
         public void RefreshView()
         {
-
-            //NotifyPropertyChanged(nameof(People));
             NotifyPropertyChanged(nameof(Courses));
+            NotifyPropertyChanged(nameof(SelectedCourse));
         }
     }
 }

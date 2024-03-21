@@ -5,6 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:MAUI.Marker"
     xmlns:local2="clr-namespace:MAUI.Marker.Views"
+    xmlns:local3="clr-namespace:MAUI.Marker.Dialogs"
     Shell.FlyoutBehavior="Disabled"
     Title="Marker">
 
@@ -26,7 +27,7 @@
         Route="Courses" />
     <ShellContent
         Title="Add/Edit Course"
-        ContentTemplate="{DataTemplate local2:CourseAddEditView}"
-        Route="CourseAddEdit" />
+        ContentTemplate="{DataTemplate local3:CourseDialog}"
+        Route="CourseDialog" />
 
 </Shell>

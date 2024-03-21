@@ -1,70 +1,60 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="MAUI.Marker.Views.CourseAddEditView"
-             Title="Add/Edit Course">
+             x:Class="MAUI.Marker.Dialogs.CourseDialog"
+             Title="Add/Edit Course"
+             NavigatedTo="ContentPage_NavigatedTo">
     <VerticalStackLayout             
             Padding="30,0"
             Spacing="25">
-		<Grid>
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition/>
-				<ColumnDefinition Width="8*"/>
-			</Grid.ColumnDefinitions>
-			<Grid.RowDefinitions>
-				<RowDefinition/>
-				<RowDefinition/>
-			</Grid.RowDefinitions>
-			<Label
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="8*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Label
                 Text="Code"
                 VerticalOptions="Center"
                 HorizontalOptions="Start"
                 Grid.Row="0"
                 Grid.Column="0"
                 />
-			<Entry
+            <Entry
                 Text="{Binding Path=Code, Mode=TwoWay}"
                 Grid.Row="1"
                 Grid.Column="0"
                 ></Entry>
-			<Label
+            <Label
                 Text="Name"
                 VerticalOptions="Center"
                 HorizontalOptions="Start"
                 Grid.Row="0"
                 Grid.Column="1"/>
-			<Entry
+            <Entry
                 Text="{Binding Path=Name, Mode=TwoWay}"
                 Grid.Row="1"
                 Grid.Column="1"></Entry>
 
-		</Grid>
+        </Grid>
 
 
-		<Label
+        <Label
             Text="Description"
             VerticalOptions="Center"
             HorizontalOptions="Center" />
-		<Entry Text="{Binding Path=Description, Mode=TwoWay}"></Entry>
+        <Entry Text="{Binding Path=Description, Mode=TwoWay}"></Entry>
 
-		<!--STUDENT ROSTER-->
-		<!--<Grid>
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition/>
-				<ColumnDefinition/>
-				<ColumnDefinition/>
-			</Grid.ColumnDefinitions>
-			<Label Text="Not Enrolled" Grid.Column="0"></Label>
-			<Label Text="Buttons" Grid.Column="1"></Label>
-			<Label Text="Enrolled" Grid.Column="2"></Label>
-		</Grid>-->
 
-		<Button Text="Ok"
+        <Button Text="Ok"
                 Clicked="OkClicked"
                 />
-		<Button Text="Cancel"
+        <Button Text="Cancel"
                 Clicked="CancelClicked"
                 />
 
-	</VerticalStackLayout>
+    </VerticalStackLayout>
 </ContentPage>
