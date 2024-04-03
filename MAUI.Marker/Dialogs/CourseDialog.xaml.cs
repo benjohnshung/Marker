@@ -30,4 +30,32 @@ public partial class CourseDialog : ContentPage
         BindingContext = new CourseDialogViewModel(CourseId);
     }
 
+    private void Toolbar_DetailsClicked(object sender, EventArgs e)
+    {
+        (BindingContext as CourseDialogViewModel)?.ShowDetails();
+    }
+    private void Toolbar_RosterClicked(object sender, EventArgs e)
+    {
+        (BindingContext as CourseDialogViewModel)?.ShowRoster();
+    }
+    private void Toolbar_ModulesClicked(object sender, EventArgs e)
+    {
+        (BindingContext as CourseDialogViewModel)?.ShowModules();
+    }
+    private void Toolbar_AssignmentsClicked(object sender, EventArgs e)
+    {
+        (BindingContext as CourseDialogViewModel)?.ShowAssignments();
+    }
+
+    private void AddStudentToRosterClicked(object sender, EventArgs e)
+    {
+        (BindingContext as CourseDialogViewModel)?.AddStudentToCourse();
+        (BindingContext as CourseDialogViewModel)?.RefreshView();
+    }
+
+    private void RemoveFromRosterClicked(object sender, EventArgs e)
+    {
+        (BindingContext as CourseDialogViewModel)?.RemoveStudentFromCourse();
+        (BindingContext as CourseDialogViewModel)?.RefreshView();
+    }
 }

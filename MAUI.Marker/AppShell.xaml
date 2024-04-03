@@ -18,9 +18,9 @@
         ContentTemplate="{DataTemplate local2:InstructorView}"
         Route="InstructorView" />
     <ShellContent
-        Title="Student View"
+        Title="Students"
         ContentTemplate="{DataTemplate local2:StudentView}"
-        Route="StudentView" />
+        Route="Students" />
     <ShellContent
         Title="Courses"
         ContentTemplate="{DataTemplate local2:CoursesView}"
@@ -29,5 +29,9 @@
         Title="Add/Edit Course"
         ContentTemplate="{DataTemplate local3:CourseDialog}"
         Route="CourseDialog" />
+    <ShellContent
+        Title="Add/Edit Student"
+        ContentTemplate="{DataTemplate local3:StudentDialog}"
+        Route="StudentDialog" />
 
 </Shell>

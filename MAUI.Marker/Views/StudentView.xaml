@@ -1,14 +1,37 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="MAUI.Marker.Views.StudentView">
-
-    <ScrollView>
-        <VerticalStackLayout
+             x:Class="MAUI.Marker.Views.StudentView"
+             Title="Students List"
+             NavigatedTo="ContentPage_NavigatedTo">
+    <VerticalStackLayout            
             Padding="30,0"
             Spacing="25">
+        <Label 
+                Text="University Course List"
+                VerticalOptions="Center" 
+                HorizontalOptions="Center" />
+        <ListView
+                ItemsSource="{Binding Students}"
+                SelectedItem="{Binding SelectedStudent}">
+        </ListView>
+        <Button 
+                Text="Add Student"
+                Clicked="AddStudentClicked"
+                />
+        <Button
+                Text="Edit Student"
+                Clicked="EditStudentClicked"
+                />
+        <Button
+                Text="Remove Student"
+                Clicked="RemoveStudentClicked"
+                />
 
-        </VerticalStackLayout>
-    </ScrollView>
-
+        <Button
+	            Text="Back"
+	            SemanticProperties.Hint="Returns to Instructor View"
+	            Clicked="BackClicked"
+	            HorizontalOptions="Fill" />
+    </VerticalStackLayout>
 </ContentPage>

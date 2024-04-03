@@ -1,6 +1,5 @@
 ﻿using Library.Marker.Models;
 using Library.Marker.Database;
-using System.Diagnostics;
 
 namespace Library.Marker.Services
 {
@@ -49,13 +48,6 @@ namespace Library.Marker.Services
 
         public IEnumerable<Course> Courses
         {
-            //get
-            //{
-            //    return Courses.Where(c =>
-            //               (c.Name ?? string.Empty).ToUpper().Contains(query ?? string.Empty) ||
-            //                              (c.Code ?? string.Empty).ToUpper().Contains(query ?? string.Empty) ||
-            //                                             (c.Description ?? string.Empty).ToUpper().Contains(query ?? string.Empty));
-            //}
             get
             {
                 return FakeDatabase.Courses;

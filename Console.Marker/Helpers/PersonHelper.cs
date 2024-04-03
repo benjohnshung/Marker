@@ -39,9 +39,9 @@ namespace App.Marker.Helpers
                     break;
             }
 
-            Person newStudent = new Person { Name = name, Classification = classification, ID = guid };
+            Person newStudent = new Person { Name = name, Classification = classification};
 
-            studentSvc.Add(newStudent);
+            studentSvc.AddOrUpdate(newStudent);
         }
         public void ListStudents()
         {

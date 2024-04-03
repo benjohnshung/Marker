@@ -10,9 +10,9 @@ namespace Library.Marker.Models
     public class Person
     {
         public string? Name { get; set; }
-        public ClassificationType? Classification { get; set; }
+        public ClassificationType Classification { get; set; }
         public List<int>? Grades { get; set; }
-        public Guid ID { get; set; }
+        public int Id { get; set; }
         public IList<Course>? CurrentCourses { get; set; }
 
 
@@ -23,7 +23,7 @@ namespace Library.Marker.Models
 
         public override string ToString()
         {
-            return $"({ID}) {Classification} - {Name}";
+            return $"({Id}) {Classification} - {Name}";
         }
 
     }

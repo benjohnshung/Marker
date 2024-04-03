@@ -17,7 +17,7 @@ namespace MAUI.Marker.Views
 
         private void StudentsButtonClicked(object sender, EventArgs e)
         {
-            //Shell.Current.GoToAsync("//Students");
+            Shell.Current.GoToAsync("//Students");
         }
     }
 }

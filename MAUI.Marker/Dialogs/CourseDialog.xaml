@@ -4,57 +4,103 @@
              x:Class="MAUI.Marker.Dialogs.CourseDialog"
              Title="Add/Edit Course"
              NavigatedTo="ContentPage_NavigatedTo">
-    <VerticalStackLayout             
-            Padding="30,0"
-            Spacing="25">
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition Width="8*"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-            <Label
-                Text="Code"
-                VerticalOptions="Center"
-                HorizontalOptions="Start"
-                Grid.Row="0"
-                Grid.Column="0"
-                />
-            <Entry
-                Text="{Binding Path=Code, Mode=TwoWay}"
-                Grid.Row="1"
-                Grid.Column="0"
-                ></Entry>
-            <Label
-                Text="Name"
-                VerticalOptions="Center"
-                HorizontalOptions="Start"
-                Grid.Row="0"
-                Grid.Column="1"/>
-            <Entry
-                Text="{Binding Path=Name, Mode=TwoWay}"
-                Grid.Row="1"
-                Grid.Column="1"></Entry>
-
-        </Grid>
-
-
-        <Label
-            Text="Description"
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Details" Clicked="Toolbar_DetailsClicked"/>
+        <ToolbarItem Text="Roster" Clicked="Toolbar_RosterClicked"/>
+        <ToolbarItem Text="Modules" Clicked="Toolbar_ModulesClicked"/>
+        <ToolbarItem Text="Assignments" Clicked="Toolbar_AssignmentsClicked"/>
+    </ContentPage.ToolbarItems>
+    <VerticalStackLayout>
+        <VerticalStackLayout IsVisible="{Binding IsDetailsVisible}"            
+        Padding="30,0"
+        Spacing="25">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="8*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Label
+            Text="Code"
             VerticalOptions="Center"
-            HorizontalOptions="Center" />
-        <Entry Text="{Binding Path=Description, Mode=TwoWay}"></Entry>
+            HorizontalOptions="Start"
+            Grid.Row="0"
+            Grid.Column="0"
+            />
+                <Entry
+            Text="{Binding Path=Code, Mode=TwoWay}"
+            Grid.Row="1"
+            Grid.Column="0"
+            ></Entry>
+                <Label
+            Text="Name"
+            VerticalOptions="Center"
+            HorizontalOptions="Start"
+            Grid.Row="0"
+            Grid.Column="1"/>
+                <Entry
+            Text="{Binding Path=Name, Mode=TwoWay}"
+            Grid.Row="1"
+            Grid.Column="1"></Entry>
+
+            </Grid>
 
 
-        <Button Text="Ok"
-                Clicked="OkClicked"
-                />
-        <Button Text="Cancel"
-                Clicked="CancelClicked"
-                />
+            <Label
+        Text="Description"
+        VerticalOptions="Center"
+        HorizontalOptions="Center" />
+            <Entry Text="{Binding Path=Description, Mode=TwoWay}"></Entry>
 
+
+            <Button Text="Ok"
+            Clicked="OkClicked"
+            />
+            <Button Text="Cancel"
+            Clicked="CancelClicked"
+            />
+
+        </VerticalStackLayout>
+        
+        <!-- ROSTER  -->
+        <VerticalStackLayout IsVisible="{Binding IsRosterVisible}"            
+        Padding="30,3"
+        Spacing="25">
+            <Label Text="Roster" />
+            <ListView
+                ItemsSource="{Binding Roster}"
+                SelectedItem="{Binding RosterSelected}">
+            </ListView>
+            <Button Grid.Column="1"
+                    Text="Remove"
+                    Clicked="RemoveFromRosterClicked"/>
+
+            <Label Text="All Students" />
+            <ListView
+                ItemsSource="{Binding Students}"
+                SelectedItem="{Binding SelectedStudent}">
+            </ListView>
+            <Button
+                Text="Add To Course"
+                Clicked="AddStudentToRosterClicked"/>
+        </VerticalStackLayout>
+        
+        <!-- MODULES  -->
+        <VerticalStackLayout IsVisible="{Binding IsModulesVisible}"            
+        Padding="30,0"
+        Spacing="25">
+            <Label Text="Modules" />
+        </VerticalStackLayout>
+        
+        <!-- ASSIGNMENTS  -->
+        <VerticalStackLayout IsVisible="{Binding IsAssignmentsVisible}"            
+        Padding="30,0"
+        Spacing="25">
+            <Label Text="Assignments" />
+        </VerticalStackLayout>
     </VerticalStackLayout>
+    
 </ContentPage>

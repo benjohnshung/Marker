@@ -1,13 +1,45 @@
 ﻿using MAUI.Marker.ViewModels;
+using Library.Marker.Services;
 
-namespace MAUI.Marker.Views
+namespace MAUI.Marker.Views;
+
+public partial class StudentView : ContentPage
 {
-    public partial class StudentView : ContentPage
+    public StudentView()
     {
-        public StudentView()
+        InitializeComponent();
+        BindingContext = new StudentViewModel();
+    }
+
+    private void AddStudentClicked(object sender, EventArgs e)
+    {
+        Shell.Current.GoToAsync($"//StudentDialog?studentId=0");
+    }
+
+    private void EditStudentClicked(object sender, EventArgs e)
+    {
+        var studentId = (BindingContext as StudentViewModel)?.SelectedStudent?.Id;
+        if (studentId != null)
         {
-            InitializeComponent();
-            BindingContext = new StudentViewModel();
+            Shell.Current.GoToAsync($"//StudentDialog?studentId={studentId}");
         }
+    }
+
+    private void RemoveStudentClicked(object sender, EventArgs e)
+    {
+        StudentService.Current.Delete((BindingContext as StudentViewModel)?.SelectedStudent);
+        (BindingContext as StudentViewModel)?.ResetView();
+        (BindingContext as StudentViewModel)?.RefreshView();
+    }
+
+    private void BackClicked(object sender, EventArgs e)
+    {
+        Shell.Current.GoToAsync("//InstructorView");
+    }
+
+    private void ContentPage_NavigatedTo(object sender, NavigatedToEventArgs e)
+    {
+        (BindingContext as StudentViewModel)?.ResetView();
+        (BindingContext as StudentViewModel)?.RefreshView();
     }
 }

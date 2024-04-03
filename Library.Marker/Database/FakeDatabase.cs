@@ -4,13 +4,13 @@ namespace Library.Marker.Database
 {
     public static class FakeDatabase
     {
-        private static List<Person> people = new List<Person>();
+        private static List<Person> students = new List<Person>();
         private static List<Course> courses = new List<Course>();
-        public static List<Person> People
+        public static List<Person> Students
         {
             get
             {
-                return people;
+                return students;
             }
         }
 

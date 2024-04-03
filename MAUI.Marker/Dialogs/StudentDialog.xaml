@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MAUI.Marker.Dialogs.StudentDialog"
+             Title="Add/Edit Student"
+             NavigatedTo="ContentPage_NavigatedTo"
+             NavigatedFrom="ContentPage_NavigatedFrom">
+    
+    <VerticalStackLayout             
+            Padding="30,0"
+            Spacing="25">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="8*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Label
+                Text="Name"
+                VerticalOptions="Center"
+                HorizontalOptions="Start"
+                Grid.Row="0"
+                Grid.Column="0"
+                />
+            <Entry
+                Text="{Binding Path=Name, Mode=TwoWay}"
+                Grid.Row="1"
+                Grid.Column="0"
+                ></Entry>
+        </Grid>
+
+
+        <Label
+            Text="Classification"
+            VerticalOptions="Center"
+            HorizontalOptions="Center" />
+        <StackLayout RadioButtonGroup.GroupName="Classifications"
+                     RadioButtonGroup.SelectedValue="Binding ClassificationString">
+            <RadioButton Content="Freshman"
+                            Value="Freshman"/>
+            <RadioButton Content="Sophomore"
+                            Value="Sophomore"/>
+            <RadioButton Content="Junior"
+                            Value="Junior"/>
+            <RadioButton Content="Senior"
+                            Value="Senior"/>
+        </StackLayout>
+
+        <Button Text="Ok"
+                Clicked="OkClicked"
+                />
+        <Button Text="Cancel"
+                Clicked="CancelClicked"
+                />
+
+    </VerticalStackLayout>
+</ContentPage>

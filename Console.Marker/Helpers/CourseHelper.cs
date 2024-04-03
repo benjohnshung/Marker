@@ -21,7 +21,7 @@ namespace App.Marker.Helpers
 
             Course newCourse = new Course { Code = code, Name = name, Description = description, Roster = roster, Assignments = assignments, Modules = modules };
 
-            courseSvc.Add(newCourse);
+            courseSvc.AddOrUpdate(newCourse);
         }
         public void AddStudentToCourse(Course CourseToUpdate)
         {
@@ -295,7 +295,7 @@ namespace App.Marker.Helpers
             {
                 foreach (var student in CourseToUpdate.Roster)
                 {
-                    Console.WriteLine($"{student.ID} | {student.Name} | {student.Classification}");
+                    Console.WriteLine($"{student.Id} | {student.Name} | {student.Classification}");
                 }
             }
         }

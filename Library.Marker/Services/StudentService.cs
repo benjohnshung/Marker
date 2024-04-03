@@ -1,10 +1,26 @@
-﻿using Library.Marker.Models;
+﻿using Library.Marker.Database;
+using Library.Marker.Models;
 
 namespace Library.Marker.Services
 {
     public class StudentService
     {
-        private IList<Person> students;
+
+        private int LastId
+        {
+            get
+            {
+                if (Students.Count() == 0)
+                {
+                    return 0;
+                }
+                else
+                {
+                    return Students.Select(c => c.Id).Max();
+                }
+            }
+        }
+
         private string? query;
         private static object _lock = new object();
         private static StudentService? instance;
@@ -27,15 +43,12 @@ namespace Library.Marker.Services
         {
             get
             {
-                return students.Where(
-                c =>
-                        (c.Name ?? string.Empty).ToUpper().Contains(query ?? string.Empty));
+                return FakeDatabase.Students;
             }
         }
 
         private StudentService()
         {
-            students = new List<Person>();
         }
 
         public IEnumerable<Person> Search(string query)
@@ -44,14 +57,25 @@ namespace Library.Marker.Services
             return Students;
         }
 
-        public void Add(Person studentToAdd)
+        public void AddOrUpdate(Person studentToAdd)
         {
-            students.Add(studentToAdd);
+            if(studentToAdd.Id <= 0)
+            {
+                studentToAdd.Id = LastId + 1;
+                FakeDatabase.Students.Add(studentToAdd);
+            }
         }
 
         public void Delete(Person studentToDelete)
         {
-            students.Remove(studentToDelete);
+            FakeDatabase.Students.Remove(studentToDelete);
         }
+
+        public Person? GetById(int id)
+        {
+            return FakeDatabase.Students.FirstOrDefault(s => s.Id == id);
+        }
+
+
     }
 }
