@@ -65,6 +65,9 @@
 		<ProjectReference Include="..\Library.Marker\Library.Marker.csproj" />
 	</ItemGroup>
 	<ItemGroup>
+	  <MauiXaml Update="Dialogs\AssignmentDialog.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Dialogs\CourseDialog.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

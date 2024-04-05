@@ -14,8 +14,8 @@ public partial class CoursesView : ContentPage
     
     private void AddCourseClicked(object sender, EventArgs e)
     {
-
-        Shell.Current.GoToAsync($"//CourseDialog?courseId=0");
+        var courseId = 0;
+        Shell.Current.GoToAsync($"//CourseDialog?courseId={courseId}");
     }
 
     private void EditCourseClicked(object sender, EventArgs e)

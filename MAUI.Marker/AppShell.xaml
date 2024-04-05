@@ -33,5 +33,9 @@
         Title="Add/Edit Student"
         ContentTemplate="{DataTemplate local3:StudentDialog}"
         Route="StudentDialog" />
+    <ShellContent
+        Title="Add/Edit Assignment"
+        ContentTemplate="{DataTemplate local3:AssignmentDialog}"
+        Route="AssignmentDialog" />
 
 </Shell>

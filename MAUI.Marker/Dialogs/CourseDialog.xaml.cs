@@ -28,6 +28,13 @@ public partial class CourseDialog : ContentPage
     private void ContentPage_NavigatedTo(object sender, NavigatedToEventArgs e)
     {
         BindingContext = new CourseDialogViewModel(CourseId);
+        (BindingContext as CourseDialogViewModel)?.RefreshView();
+    }
+
+    private void ContentPage_NavigatedFrom(object sender, NavigatedToEventArgs e)
+    {
+        BindingContext = new CourseDialogViewModel(CourseId);
+        (BindingContext as CourseDialogViewModel)?.RefreshView();
     }
 
     private void Toolbar_DetailsClicked(object sender, EventArgs e)
@@ -56,6 +63,17 @@ public partial class CourseDialog : ContentPage
     private void RemoveFromRosterClicked(object sender, EventArgs e)
     {
         (BindingContext as CourseDialogViewModel)?.RemoveStudentFromCourse();
+        (BindingContext as CourseDialogViewModel)?.RefreshView();
+    }
+
+    private void AddAssignmentClicked(object sender, EventArgs e)
+    {
+        Shell.Current.GoToAsync($"//AssignmentDialog?courseId={CourseId}");
+    }
+
+    private void RemoveAssignmentClicked(object sender, EventArgs e)
+    {
+        (BindingContext as CourseDialogViewModel)?.RemoveAssignment();
         (BindingContext as CourseDialogViewModel)?.RefreshView();
     }
 }

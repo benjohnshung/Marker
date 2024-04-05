@@ -14,14 +14,33 @@ namespace MAUI.Marker.ViewModels
 {
     public class CourseDialogViewModel : INotifyPropertyChanged
     {
+        // Constructor
+        public CourseDialogViewModel(int cId)
+        {
+            IsDetailsVisible = true;
+            IsModulesVisible = false;
+            IsRosterVisible = false;
+            IsAssignmentsVisible = false;
+
+            if (cId == 0)
+            {
+                course = new Course();
+            }
+            else
+            {
+                course = CourseService.Current.Get(cId) ?? new Course();
+            }
+        }
+
+
+        // Course Details
         private Course course;
-        public Person SelectedStudent { get; set; }
-        public Person RosterSelected { get; set; }
+
         public string Name 
         { 
             get { return course?.Name ?? string.Empty;} 
             set { 
-                if (course == null) course = new Course();
+                course ??= new Course();
                 course.Name = value; 
             }
         }
@@ -31,7 +50,7 @@ namespace MAUI.Marker.ViewModels
             get { return course?.Code ?? string.Empty; }
             set
             {
-                if (course == null) course = new Course();
+                course ??= new Course();
                 course.Code = value;
             }
         }
@@ -41,10 +60,21 @@ namespace MAUI.Marker.ViewModels
             get { return course?.Description ?? string.Empty; }
             set
             {
-                if (course == null) course = new Course();
+                course ??= new Course();
                 course.Description = value;
             }
         }
+        public void AddCourse()
+        {
+            if (course != null)
+            {
+                CourseService.Current.AddOrUpdate(course);
+            }
+        }
+
+        // Roster Details
+        public Person? SelectedStudent { get; set; }
+        public Person? RosterSelected { get; set; }
         public ObservableCollection<Person> Roster
         {
             get
@@ -59,57 +89,69 @@ namespace MAUI.Marker.ViewModels
                 return new ObservableCollection<Person>(StudentService.Current.Students);
             }
         }
-        public bool IsDetailsVisible { get; set; }
-        public bool IsModulesVisible { get; set; }
-        public bool IsRosterVisible { get; set; }
-        public bool IsAssignmentsVisible { get; set; }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        public CourseDialogViewModel(int cId)
-        {
-            IsDetailsVisible = true;
-            IsModulesVisible = false;
-            IsRosterVisible = false;
-            IsAssignmentsVisible = false;
-
-            if(cId == 0)
-            {
-                course = new Course();
-            } else {
-                course = CourseService.Current.Get(cId) ?? new Course();
-            }
-        }
-
-        public void AddCourse()
-        {
-            if(course != null)
-            {
-                CourseService.Current.AddOrUpdate(course);
-            }
-        }
 
         public void AddStudentToCourse()
         {
-            if(course != null)
+            if(course != null && SelectedStudent != null)
             {
-                course.Roster.Add(SelectedStudent);
+                course.Roster?.Add(SelectedStudent);
             }
         }
 
         public void RemoveStudentFromCourse()
         {
-            if(course != null)
+            if(course != null && RosterSelected != null)
             {
-                course.Roster.Remove(RosterSelected);
+                course.Roster?.Remove(RosterSelected);
             }
         }
 
+        // Module Details
+
+
+
+        // Assignment Details
+
+        public Assignment? SelectedAssignment { get; set; }
+
+        public ObservableCollection<Assignment> Assignments
+        {
+            get
+            {
+                return new ObservableCollection<Assignment>(course.Assignments ?? []);
+            }
+        }
+
+        public void AddAssignment()
+        {
+            // TODO: Implement
+            if(course != null)
+            {
+                course.Assignments ??= new List<Assignment>();
+                course.Assignments.Add(new Assignment());
+            }
+        }
+
+        public void RemoveAssignment()
+        {
+            if(course != null && SelectedAssignment != null)
+            {
+                course.Assignments?.Remove(SelectedAssignment);
+            }
+        }
+
+
+        // INotifyPropertyChanged implementation
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+        public bool IsDetailsVisible { get; set; }
+        public bool IsModulesVisible { get; set; }
+        public bool IsRosterVisible { get; set; }
+        public bool IsAssignmentsVisible { get; set; }
         public void ShowDetails()
         {
             IsDetailsVisible = true;
@@ -159,6 +201,9 @@ namespace MAUI.Marker.ViewModels
             NotifyPropertyChanged(nameof(Roster));
             NotifyPropertyChanged(nameof(Students));
             NotifyPropertyChanged(nameof(SelectedStudent));
+            NotifyPropertyChanged(nameof(RosterSelected));
+            NotifyPropertyChanged(nameof(Assignments));
+            NotifyPropertyChanged(nameof(SelectedAssignment));
         }
     }
 }

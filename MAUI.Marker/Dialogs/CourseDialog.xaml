@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MAUI.Marker.Dialogs.CourseDialog"
              Title="Add/Edit Course"
-             NavigatedTo="ContentPage_NavigatedTo">
+             NavigatedTo="ContentPage_NavigatedTo"
+             NavigatedFrom="ContentPage_NavigatedFrom">
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Details" Clicked="Toolbar_DetailsClicked"/>
         <ToolbarItem Text="Roster" Clicked="Toolbar_RosterClicked"/>
@@ -69,23 +70,37 @@
         <VerticalStackLayout IsVisible="{Binding IsRosterVisible}"            
         Padding="30,3"
         Spacing="25">
-            <Label Text="Roster" />
-            <ListView
-                ItemsSource="{Binding Roster}"
-                SelectedItem="{Binding RosterSelected}">
-            </ListView>
-            <Button Grid.Column="1"
-                    Text="Remove"
-                    Clicked="RemoveFromRosterClicked"/>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Label Text="Roster" Grid.Column="0" Grid.Row="0" HorizontalOptions="Center"/>
 
-            <Label Text="All Students" />
-            <ListView
-                ItemsSource="{Binding Students}"
-                SelectedItem="{Binding SelectedStudent}">
-            </ListView>
-            <Button
-                Text="Add To Course"
-                Clicked="AddStudentToRosterClicked"/>
+                <ListView Grid.Column="0" Grid.Row="1"
+                    ItemsSource="{Binding Roster}"
+                    SelectedItem="{Binding RosterSelected}">
+                </ListView>
+                <Button WidthRequest="150" Grid.Column="0" Grid.Row="2"
+                        Text="Remove"
+                        Clicked="RemoveFromRosterClicked"/>
+
+
+                <Label Text="All Students" Grid.Column="1" Grid.Row="0" HorizontalOptions="Center"/>
+
+                <ListView Grid.Column="1" Grid.Row="1"
+                    ItemsSource="{Binding Students}"
+                    SelectedItem="{Binding SelectedStudent}">
+                </ListView>
+                <Button WidthRequest="150" Grid.Column="1" Grid.Row="2"
+                    Text="Add To Course"
+                    Clicked="AddStudentToRosterClicked"/>
+            </Grid>
         </VerticalStackLayout>
         
         <!-- MODULES  -->
@@ -99,7 +114,20 @@
         <VerticalStackLayout IsVisible="{Binding IsAssignmentsVisible}"            
         Padding="30,0"
         Spacing="25">
-            <Label Text="Assignments" />
+            <Label Text="Assignments" HorizontalOptions="Center"/>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <Button WidthRequest="200" Grid.Column="0" Text="Add New Assignment" Clicked="AddAssignmentClicked"/>
+                <Button WidthRequest="200" Grid.Column="1" Text="Remove Assignment" Clicked="RemoveAssignmentClicked"/>
+            </Grid>
+            
+            
+            <ListView ItemsSource="{Binding Assignments}" SelectedItem="{Binding SelectedAssignment}"></ListView>
         </VerticalStackLayout>
     </VerticalStackLayout>
     
