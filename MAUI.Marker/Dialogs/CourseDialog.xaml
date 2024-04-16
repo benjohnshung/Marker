@@ -108,6 +108,42 @@
         Padding="30,0"
         Spacing="25">
             <Label Text="Modules" />
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Button WidthRequest="150" Grid.Column="0" Text="New Module" Clicked="AddModuleClicked"/>
+                <Button WidthRequest="150" Grid.Column="1" Text="Edit Module" Clicked="EditModuleClicked"/>
+                <Button WidthRequest="150" Grid.Column="2" Text="Remove Module" Clicked="RemoveModuleClicked"/>
+            </Grid>
+            <ListView ItemsSource="{Binding Modules}" SelectedItem="{Binding SelectedModule}"></ListView>
+        </VerticalStackLayout>
+        
+        <!--Add Module View -->
+        <VerticalStackLayout IsVisible="{Binding IsModulesAddVisible}"
+                             Padding="30,0" Spacing="25">
+            <Label Text="Create a new module"/>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Label Text="Name" Grid.Column="0" Grid.Row="0"/>
+                <Entry Text="{Binding NewModuleName}" Grid.Column="1" Grid.Row="0"/>
+
+                <Label Text="Description" Grid.Column="0" Grid.Row="1"/>
+                <Entry Text="{Binding NewModuleDescription}" Grid.Column="1" Grid.Row="1"/>
+            </Grid>
+            <Button Text="Confirm" Clicked="AddNewModuleOkClicked"/>
+            <Button Text="Cancel" Clicked="AddNewModuleCancelClicked"/>
         </VerticalStackLayout>
         
         <!-- ASSIGNMENTS  -->
@@ -128,6 +164,36 @@
             
             
             <ListView ItemsSource="{Binding Assignments}" SelectedItem="{Binding SelectedAssignment}"></ListView>
+        </VerticalStackLayout>
+        
+        <!--Add Assignment View -->
+        <VerticalStackLayout Padding="20,5" Spacing="25" IsVisible="{Binding IsAssignmentsEditVisible}">
+            <Grid RowSpacing="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="5*"/>
+                    <ColumnDefinition Width="30*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <Label Text="Name" Grid.Column="0" Grid.Row="0"/>
+                <Label Text="Description" Grid.Column="0" Grid.Row="1"/>
+                <Label Text="Total Points" Grid.Column="0" Grid.Row="2"/>
+                <Label Text="Due Date" Grid.Column="0" Grid.Row="3"/>
+
+                <Entry Text="{Binding Path=newAssignmentName}" Grid.Column="1" Grid.Row="0"/>
+                <Entry Text="{Binding Path=newAssignmentDescription}" Grid.Column="1" Grid.Row="1"/>
+                <Entry Text="{Binding Path=newAssignmentTotalPoints}" Grid.Column="1" Grid.Row="2"/>
+                <DatePicker Date="{Binding Path=newAssignmentDueDate}" MinimumDate="01/01/2024" Grid.Column="1" Grid.Row="3"/>
+
+
+            </Grid>
+            <Button Text="Ok" Clicked="EditAssignmentOkClicked"/>
+            <Button Text="Cancel" Clicked="EditAssignmentCancelClicked"/>
         </VerticalStackLayout>
     </VerticalStackLayout>
     

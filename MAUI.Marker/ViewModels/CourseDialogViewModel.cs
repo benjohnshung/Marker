@@ -17,11 +17,7 @@ namespace MAUI.Marker.ViewModels
         // Constructor
         public CourseDialogViewModel(int cId)
         {
-            IsDetailsVisible = true;
-            IsModulesVisible = false;
-            IsRosterVisible = false;
-            IsAssignmentsVisible = false;
-
+            ShowDetails();
             if (cId == 0)
             {
                 course = new Course();
@@ -108,6 +104,58 @@ namespace MAUI.Marker.ViewModels
 
         // Module Details
 
+        public Module? SelectedModule { get; set; }
+
+        public ObservableCollection<Module> Modules
+        {
+            get
+            {
+                return new ObservableCollection<Module>(course.Modules ?? []);
+            }
+        }
+            // All Modules view
+        public void RemoveModule()
+        {
+            if (course != null && SelectedModule != null)
+            {
+                course.Modules?.Remove(SelectedModule);
+            }
+        }
+
+            // Add Module view
+        private Module module;
+        public string NewModuleName
+        {
+            get { return module?.Name ?? string.Empty; }
+            set
+            {
+                module ??= new Module();
+                module.Name = value;
+            }
+        }
+
+        public string NewModuleDescription
+        {
+            get { return module?.Description ?? string.Empty; }
+            set
+            {
+                module ??= new Module();
+                module.Description = value;
+            }
+        }
+
+        public void AddModule()
+        {
+            if(course != null)
+            {
+                course.Modules ??= new List<Module>();
+                Module newModule = new Module();
+                newModule.Name = NewModuleName;
+                newModule.Description = NewModuleDescription;
+                course.Modules.Add(newModule);
+            }
+        }
+            // Edit Module view
 
 
         // Assignment Details
@@ -122,16 +170,6 @@ namespace MAUI.Marker.ViewModels
             }
         }
 
-        public void AddAssignment()
-        {
-            // TODO: Implement
-            if(course != null)
-            {
-                course.Assignments ??= new List<Assignment>();
-                course.Assignments.Add(new Assignment());
-            }
-        }
-
         public void RemoveAssignment()
         {
             if(course != null && SelectedAssignment != null)
@@ -139,6 +177,74 @@ namespace MAUI.Marker.ViewModels
                 course.Assignments?.Remove(SelectedAssignment);
             }
         }
+
+        private Assignment newAssignment;
+        public string newAssignmentName
+        {
+            get { return newAssignment?.Name ?? string.Empty; }
+            set
+            {
+                newAssignment ??= new Assignment();
+                newAssignment.Name = value;
+            }
+        }
+
+        public string newAssignmentDescription
+        {
+            get { return newAssignment?.Description ?? string.Empty; }
+            set
+            {
+                newAssignment ??= new Assignment();
+                newAssignment.Description = value;
+            }
+        }
+
+        public int newAssignmentTotalPoints
+        {
+            get {
+                if (newAssignment == null)
+                {
+                    return 100;
+                }
+                return newAssignment.TotalAvailablePoints; 
+            }
+            set
+            {
+                newAssignment ??= new Assignment();
+                newAssignment.TotalAvailablePoints = value;
+            }
+        }
+
+        public DateTime newAssignmentDueDate
+        {
+            get {
+                if (newAssignment == null)
+                {
+                    return DateTime.Now;
+                }
+                return newAssignment.DueDate; 
+            }
+            set
+            {
+                newAssignment ??= new Assignment();
+                newAssignment.DueDate = value;
+            }
+        }
+
+        public void AddAssignment()
+        {
+            if (course != null)
+            {
+                course.Assignments ??= new List<Assignment>();
+                course.Assignments.Add(newAssignment);
+            }
+        }
+
+
+
+
+
+
 
 
         // INotifyPropertyChanged implementation
@@ -150,60 +256,121 @@ namespace MAUI.Marker.ViewModels
         }
         public bool IsDetailsVisible { get; set; }
         public bool IsModulesVisible { get; set; }
+        public bool IsModulesAddVisible { get; set; }
+        public bool IsModulesEditVisible { get; set; }
         public bool IsRosterVisible { get; set; }
         public bool IsAssignmentsVisible { get; set; }
+        public bool IsAssignmentsEditVisible { get; set; }
+
         public void ShowDetails()
         {
             IsDetailsVisible = true;
+
             IsModulesVisible = false;
+            IsModulesAddVisible = false;
+            IsModulesEditVisible = false;
+            
             IsRosterVisible = false;
+            
             IsAssignmentsVisible = false;
-            NotifyPropertyChanged(nameof(IsDetailsVisible));
-            NotifyPropertyChanged(nameof(IsModulesVisible));
-            NotifyPropertyChanged(nameof(IsRosterVisible));
-            NotifyPropertyChanged(nameof(IsAssignmentsVisible));
+            IsAssignmentsEditVisible = false;
+
+            RefreshView();
         }
         public void ShowModules()
         {
             IsDetailsVisible = false;
             IsModulesVisible = true;
+            IsModulesAddVisible = false;
+            IsModulesEditVisible = false;
             IsRosterVisible = false;
             IsAssignmentsVisible = false;
-            NotifyPropertyChanged(nameof(IsDetailsVisible));
-            NotifyPropertyChanged(nameof(IsModulesVisible));
-            NotifyPropertyChanged(nameof(IsRosterVisible));
-            NotifyPropertyChanged(nameof(IsAssignmentsVisible));
+            IsAssignmentsEditVisible = false;
+            RefreshView();
+
         }
         public void ShowRoster()
         {
             IsDetailsVisible = false;
             IsModulesVisible = false;
+            IsModulesAddVisible = false;
+            IsModulesEditVisible = false;
             IsRosterVisible = true;
             IsAssignmentsVisible = false;
-            NotifyPropertyChanged(nameof(IsDetailsVisible));
-            NotifyPropertyChanged(nameof(IsModulesVisible));
-            NotifyPropertyChanged(nameof(IsRosterVisible));
-            NotifyPropertyChanged(nameof(IsAssignmentsVisible));
+            IsAssignmentsEditVisible = false;
+            RefreshView();
+
         }
         public void ShowAssignments()
         {
             IsDetailsVisible = false;
             IsModulesVisible = false;
+            IsModulesAddVisible = false;
+            IsModulesEditVisible = false;
             IsRosterVisible = false;
             IsAssignmentsVisible = true;
-            NotifyPropertyChanged(nameof(IsDetailsVisible));
-            NotifyPropertyChanged(nameof(IsModulesVisible));
-            NotifyPropertyChanged(nameof(IsRosterVisible));
-            NotifyPropertyChanged(nameof(IsAssignmentsVisible));
+            IsAssignmentsEditVisible = false;
+            RefreshView();
+
+        }
+
+        public void ShowModuleAdd()
+        {
+            IsDetailsVisible = false;
+            IsModulesVisible = false;
+            IsModulesAddVisible = true;
+            IsModulesEditVisible = false;
+            IsRosterVisible = false;
+            IsAssignmentsVisible = false;
+            IsAssignmentsEditVisible = false;
+            RefreshView();
+
+        }
+
+        public void ShowModuleEdit()
+        {
+            IsDetailsVisible = false;
+            IsModulesVisible = false;
+            IsModulesAddVisible = false;
+            IsModulesEditVisible = true;
+            IsRosterVisible = false;
+            IsAssignmentsVisible = false;
+            IsAssignmentsEditVisible = false;
+            RefreshView();
+
+        }
+        public void ShowAssignmentEdit()
+        {
+            IsDetailsVisible = false;
+            IsModulesVisible = false;
+            IsModulesAddVisible = false;
+            IsModulesEditVisible = false;
+            IsRosterVisible = false;
+            IsAssignmentsVisible = false;
+            IsAssignmentsEditVisible = true;
+            RefreshView();
         }
         public void RefreshView()
         {
+            NotifyPropertyChanged(nameof(IsDetailsVisible));
+            NotifyPropertyChanged(nameof(IsModulesVisible));
+            NotifyPropertyChanged(nameof(IsModulesAddVisible));
+            NotifyPropertyChanged(nameof(IsModulesEditVisible));
+            NotifyPropertyChanged(nameof(IsRosterVisible));
+            NotifyPropertyChanged(nameof(IsAssignmentsVisible));
+            NotifyPropertyChanged(nameof(IsAssignmentsEditVisible));
+
             NotifyPropertyChanged(nameof(Roster));
             NotifyPropertyChanged(nameof(Students));
+
             NotifyPropertyChanged(nameof(SelectedStudent));
             NotifyPropertyChanged(nameof(RosterSelected));
+
             NotifyPropertyChanged(nameof(Assignments));
             NotifyPropertyChanged(nameof(SelectedAssignment));
+
+            NotifyPropertyChanged(nameof(Modules));
+            NotifyPropertyChanged(nameof(SelectedModule));
         }
     }
 }
