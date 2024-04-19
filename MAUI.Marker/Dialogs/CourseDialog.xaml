@@ -146,6 +146,31 @@
             <Button Text="Cancel" Clicked="AddNewModuleCancelClicked"/>
         </VerticalStackLayout>
         
+        <!--Edit Module View / Add Content Items -->
+        <VerticalStackLayout IsVisible="{Binding IsModulesEditVisible}"
+                             Padding="30,0" Spacing="25">
+            <Label Text="New Content Item"/>
+            
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <Label Text="Name" Grid.Column="0" Grid.Row="0"/>
+                <Entry Text="{Binding NewContentItemName}" Grid.Column="1" Grid.Row="0"/>
+
+                <Label Text="Description" Grid.Column="0" Grid.Row="1"/>
+                <Entry Text="{Binding NewContentItemDescription}" Grid.Column="1" Grid.Row="1"/>
+            </Grid>
+            <Button Text="Confirm" Clicked="AddNewContentItemOkClicked"/>
+            <Button Text="Cancel" Clicked="AddNewContentItemCancelClicked"/>
+        </VerticalStackLayout>
+        
         <!-- ASSIGNMENTS  -->
         <VerticalStackLayout IsVisible="{Binding IsAssignmentsVisible}"            
         Padding="30,0"

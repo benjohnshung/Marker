@@ -10,15 +10,15 @@ namespace Library.Marker.Models
     public class Person
     {
         public string? Name { get; set; }
-        public ClassificationType Classification { get; set; }
+        public ClassificationType? Classification { get; set; }
         public List<int>? Grades { get; set; }
         public int Id { get; set; }
-        public IList<Course>? CurrentCourses { get; set; }
+        public IList<Course> CurrentCourses { get; set; }
 
 
         public Person()
         {
-
+            CurrentCourses = new List<Course>();
         }
 
         public override string ToString()

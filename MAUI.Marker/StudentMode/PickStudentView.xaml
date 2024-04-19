@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MAUI.Marker.StudentMode.PickStudentView"
+             Title="Pick a Student"
+             NavigatedTo="ContentPage_NavigatedTo"
+             NavigatedFrom="ContentPage_NavigatedFrom">
+    <VerticalStackLayout Padding="30,3" Spacing="25">
+        <Label Text="Students" HorizontalOptions="Center"></Label>
+
+        <ListView ItemsSource="{Binding Students}"
+                  SelectedItem="{Binding SelectedStudent}">
+        </ListView>
+
+        <Button Text="Select" Clicked="SelectClicked"></Button>
+        <Button Text="Back" Clicked="BackClicked"></Button>
+    </VerticalStackLayout>
+</ContentPage>

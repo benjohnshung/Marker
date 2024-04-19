@@ -24,7 +24,7 @@
 		<ApplicationTitle>Marker</ApplicationTitle>
 
 		<!-- App Identifier -->
-		<ApplicationId>com.companyname.maui.marker</ApplicationId>
+		<ApplicationId>com.companyname.marker</ApplicationId>
 
 		<!-- Versions -->
 		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
@@ -65,13 +65,16 @@
 		<ProjectReference Include="..\Library.Marker\Library.Marker.csproj" />
 	</ItemGroup>
 	<ItemGroup>
-	  <MauiXaml Update="Dialogs\AssignmentDialog.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
 	  <MauiXaml Update="Dialogs\CourseDialog.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Dialogs\StudentDialog.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="StudentMode\PickStudentView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="StudentMode\StudentPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\CoursesView.xaml">

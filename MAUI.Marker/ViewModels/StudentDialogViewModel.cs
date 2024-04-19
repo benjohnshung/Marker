@@ -83,7 +83,7 @@ namespace MAUI.Marker.ViewModels
             }
             return classification;
         }
-        private string ClassToString(ClassificationType c)
+        private string ClassToString(ClassificationType? c)
         {
             string classification;
             switch (c)

@@ -128,4 +128,19 @@ public partial class CourseDialog : ContentPage
         (BindingContext as CourseDialogViewModel)?.ShowModules();
     }
 
+    private void AddNewContentItemOkClicked(object sender, EventArgs e)
+    {
+        (BindingContext as CourseDialogViewModel)?.AddContentItem();
+        (BindingContext as CourseDialogViewModel)?.ShowModules();
+        (BindingContext as CourseDialogViewModel)?.RefreshView();
+    }
+    private void AddNewContentItemCancelClicked(object sender, EventArgs e)
+    {
+
+
+
+
+        (BindingContext as CourseDialogViewModel)?.ShowModules();
+        (BindingContext as CourseDialogViewModel)?.RefreshView();
+    }
 }

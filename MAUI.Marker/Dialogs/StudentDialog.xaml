@@ -38,7 +38,7 @@
             VerticalOptions="Center"
             HorizontalOptions="Center" />
         <StackLayout RadioButtonGroup.GroupName="Classifications"
-                     RadioButtonGroup.SelectedValue="Binding ClassificationString">
+                     RadioButtonGroup.SelectedValue="{Binding ClassificationString}">
             <RadioButton Content="Freshman"
                             Value="Freshman"/>
             <RadioButton Content="Sophomore"

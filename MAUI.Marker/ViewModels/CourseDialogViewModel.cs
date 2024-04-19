@@ -26,6 +26,7 @@ namespace MAUI.Marker.ViewModels
             {
                 course = CourseService.Current.Get(cId) ?? new Course();
             }
+            RefreshView();
         }
 
 
@@ -91,6 +92,7 @@ namespace MAUI.Marker.ViewModels
             if(course != null && SelectedStudent != null)
             {
                 course.Roster?.Add(SelectedStudent);
+                SelectedStudent.CurrentCourses.Add(course);
             }
         }
 
@@ -104,7 +106,7 @@ namespace MAUI.Marker.ViewModels
 
         // Module Details
 
-        public Module? SelectedModule { get; set; }
+        public Module SelectedModule { get; set; }
 
         public ObservableCollection<Module> Modules
         {
@@ -113,7 +115,9 @@ namespace MAUI.Marker.ViewModels
                 return new ObservableCollection<Module>(course.Modules ?? []);
             }
         }
-            // All Modules view
+
+
+        // All Modules view
         public void RemoveModule()
         {
             if (course != null && SelectedModule != null)
@@ -154,9 +158,36 @@ namespace MAUI.Marker.ViewModels
                 newModule.Description = NewModuleDescription;
                 course.Modules.Add(newModule);
             }
+            NewModuleName = string.Empty;
+            NewModuleDescription = string.Empty;
+            RefreshView();
         }
-            // Edit Module view
-
+        // Edit Module view
+        public string NewContentItemName { get; set; }
+        public string NewContentItemDescription { get; set; }
+        public ObservableCollection<ContentItem> ModuleContent
+        {
+            get
+            {
+                return new ObservableCollection<ContentItem>(SelectedModule.Content ?? []);
+            }
+        }
+        public Module ContentItemSelectedModule { get; set; }
+        public void AddContentItem()
+        {
+            if (ContentItemSelectedModule != null)
+            {
+                ContentItemSelectedModule.Content ??= new List<ContentItem>();
+                ContentItem newContentItem = new ContentItem();
+                newContentItem.Name = NewContentItemName;
+                newContentItem.Description = NewContentItemDescription;
+                newContentItem.Path = "";
+                ContentItemSelectedModule.Content.Add(newContentItem);
+            }
+            NewContentItemName = string.Empty;
+            NewContentItemDescription = string.Empty;
+            RefreshView();
+        }
 
         // Assignment Details
 
@@ -236,10 +267,14 @@ namespace MAUI.Marker.ViewModels
             if (course != null)
             {
                 course.Assignments ??= new List<Assignment>();
+                Assignment newAssignment = new Assignment();
+                newAssignment.Name = newAssignmentName;
+                newAssignment.Description = newAssignmentDescription;
+                newAssignment.TotalAvailablePoints = newAssignmentTotalPoints;
+                newAssignment.DueDate = newAssignmentDueDate;
                 course.Assignments.Add(newAssignment);
             }
         }
-
 
 
 
@@ -329,6 +364,8 @@ namespace MAUI.Marker.ViewModels
 
         public void ShowModuleEdit()
         {
+            // make new module equal the selected module
+            ContentItemSelectedModule = SelectedModule;
             IsDetailsVisible = false;
             IsModulesVisible = false;
             IsModulesAddVisible = false;
@@ -370,7 +407,10 @@ namespace MAUI.Marker.ViewModels
             NotifyPropertyChanged(nameof(SelectedAssignment));
 
             NotifyPropertyChanged(nameof(Modules));
-            NotifyPropertyChanged(nameof(SelectedModule));
+            //NotifyPropertyChanged(nameof(SelectedModule));  
+            NotifyPropertyChanged(nameof(NewContentItemName));  
+            NotifyPropertyChanged(nameof(NewContentItemDescription));  
+            NotifyPropertyChanged(nameof(ModuleContent));
         }
     }
 }

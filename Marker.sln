@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34607.119
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Marker", "Console.Marker\App.Marker.csproj", "{90AFCAFC-2D95-46B7-914B-BDE75581F597}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App.Marker", "Console.Marker\App.Marker.csproj", "{90AFCAFC-2D95-46B7-914B-BDE75581F597}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Library.Marker", "Library.Marker\Library.Marker.csproj", "{86CD1835-1A2E-4A7F-909A-8BC32B43B978}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Library.Marker", "Library.Marker\Library.Marker.csproj", "{86CD1835-1A2E-4A7F-909A-8BC32B43B978}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MAUI.Marker", "MAUI.Marker\MAUI.Marker.csproj", "{EE572987-3F39-422D-AC72-1B55A344AF2A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MAUI.Marker", "MAUI.Marker\MAUI.Marker.csproj", "{EE572987-3F39-422D-AC72-1B55A344AF2A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

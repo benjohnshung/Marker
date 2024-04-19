@@ -34,6 +34,6 @@ public partial class StudentDialog : ContentPage
 
     private void ContentPage_NavigatedFrom(object sender, NavigatedFromEventArgs e)
     {
-        BindingContext = null;
+        BindingContext = new StudentDialogViewModel(StudentId);
     }
 }
