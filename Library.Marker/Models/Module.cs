@@ -14,7 +14,7 @@ namespace Library.Marker.Models
 
         public override string ToString()
         {
-            return $"{Name} - {Description}";
+            return $"Module: {Name} - {Description}";
         }
     }
 }

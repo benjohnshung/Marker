@@ -82,6 +82,8 @@ internal class StudentPageViewModel : INotifyPropertyChanged
         }
     }
 
+    // ContentItems
 
 
 }
+// modulename contentitems itemname

@@ -103,6 +103,12 @@ public partial class CourseDialog : ContentPage
         (BindingContext as CourseDialogViewModel)?.ShowModuleAdd();
     }
 
+    private void ViewModuleClicked(object sender, EventArgs e)
+    {
+        (BindingContext as CourseDialogViewModel)?.ShowModuleView();
+        (BindingContext as CourseDialogViewModel)?.RefreshView();
+    }
+
     private void EditModuleClicked(object sender, EventArgs e)
     {
         (BindingContext as CourseDialogViewModel)?.ShowModuleEdit();
@@ -136,10 +142,11 @@ public partial class CourseDialog : ContentPage
     }
     private void AddNewContentItemCancelClicked(object sender, EventArgs e)
     {
-
-
-
-
+        (BindingContext as CourseDialogViewModel)?.ShowModules();
+        (BindingContext as CourseDialogViewModel)?.RefreshView();
+    }
+    private void ContentItemBackClicked(object sender, EventArgs e)
+    {
         (BindingContext as CourseDialogViewModel)?.ShowModules();
         (BindingContext as CourseDialogViewModel)?.RefreshView();
     }

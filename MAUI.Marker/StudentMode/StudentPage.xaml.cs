@@ -23,9 +23,6 @@ public partial class StudentPage : ContentPage
         (BindingContext as StudentPageViewModel)?.RefreshView();
     }
 
-    private void ModuleClicked(object sender, EventArgs e)
-    {
-    }
 
     private void AssignmentClicked(object sender, EventArgs e)
     {

@@ -114,10 +114,12 @@
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
+                    <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <Button WidthRequest="150" Grid.Column="0" Text="New Module" Clicked="AddModuleClicked"/>
-                <Button WidthRequest="150" Grid.Column="1" Text="Edit Module" Clicked="EditModuleClicked"/>
-                <Button WidthRequest="150" Grid.Column="2" Text="Remove Module" Clicked="RemoveModuleClicked"/>
+                <Button WidthRequest="150" Grid.Column="1" Text="View Items" Clicked="ViewModuleClicked"/>
+                <Button WidthRequest="150" Grid.Column="2" Text="Edit Module" Clicked="EditModuleClicked"/>
+                <Button WidthRequest="150" Grid.Column="3" Text="Remove Module" Clicked="RemoveModuleClicked"/>
             </Grid>
             <ListView ItemsSource="{Binding Modules}" SelectedItem="{Binding SelectedModule}"></ListView>
         </VerticalStackLayout>
@@ -171,6 +173,13 @@
             <Button Text="Cancel" Clicked="AddNewContentItemCancelClicked"/>
         </VerticalStackLayout>
         
+        <!--View Content Items-->
+        <VerticalStackLayout IsVisible="{Binding IsModulesViewVisible}"
+                             Padding="30,0" Spacing="25">
+            <Label Text="{Binding ContentItemSelectedModule.Name}"/>
+            <ListView ItemsSource="{Binding ContentItems}"></ListView>
+            <Button Text="Back" Clicked="ContentItemBackClicked"/>
+        </VerticalStackLayout>
         <!-- ASSIGNMENTS  -->
         <VerticalStackLayout IsVisible="{Binding IsAssignmentsVisible}"            
         Padding="30,0"

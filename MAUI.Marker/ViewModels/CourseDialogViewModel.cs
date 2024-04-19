@@ -189,6 +189,25 @@ namespace MAUI.Marker.ViewModels
             RefreshView();
         }
 
+        // View Module Content Items
+        public ObservableCollection<ContentItem> ContentItems
+        {
+            get
+            {
+                if (ContentItemSelectedModule == null)
+                {
+                    return new ObservableCollection<ContentItem>();
+                } else
+                {
+                    if(ContentItemSelectedModule.Content == null)
+                    {
+                        ContentItemSelectedModule.Content = new List<ContentItem>();
+                    }
+                    return new ObservableCollection<ContentItem>(ContentItemSelectedModule.Content);
+                }
+            }
+        }
+
         // Assignment Details
 
         public Assignment? SelectedAssignment { get; set; }
@@ -292,6 +311,7 @@ namespace MAUI.Marker.ViewModels
         public bool IsDetailsVisible { get; set; }
         public bool IsModulesVisible { get; set; }
         public bool IsModulesAddVisible { get; set; }
+        public bool IsModulesViewVisible { get; set; }
         public bool IsModulesEditVisible { get; set; }
         public bool IsRosterVisible { get; set; }
         public bool IsAssignmentsVisible { get; set; }
@@ -303,8 +323,9 @@ namespace MAUI.Marker.ViewModels
 
             IsModulesVisible = false;
             IsModulesAddVisible = false;
+            IsModulesViewVisible = false;
             IsModulesEditVisible = false;
-            
+
             IsRosterVisible = false;
             
             IsAssignmentsVisible = false;
@@ -317,6 +338,7 @@ namespace MAUI.Marker.ViewModels
             IsDetailsVisible = false;
             IsModulesVisible = true;
             IsModulesAddVisible = false;
+            IsModulesViewVisible = false;
             IsModulesEditVisible = false;
             IsRosterVisible = false;
             IsAssignmentsVisible = false;
@@ -329,6 +351,7 @@ namespace MAUI.Marker.ViewModels
             IsDetailsVisible = false;
             IsModulesVisible = false;
             IsModulesAddVisible = false;
+            IsModulesViewVisible = false;
             IsModulesEditVisible = false;
             IsRosterVisible = true;
             IsAssignmentsVisible = false;
@@ -341,6 +364,7 @@ namespace MAUI.Marker.ViewModels
             IsDetailsVisible = false;
             IsModulesVisible = false;
             IsModulesAddVisible = false;
+            IsModulesViewVisible = false;
             IsModulesEditVisible = false;
             IsRosterVisible = false;
             IsAssignmentsVisible = true;
@@ -354,6 +378,7 @@ namespace MAUI.Marker.ViewModels
             IsDetailsVisible = false;
             IsModulesVisible = false;
             IsModulesAddVisible = true;
+            IsModulesViewVisible = false;
             IsModulesEditVisible = false;
             IsRosterVisible = false;
             IsAssignmentsVisible = false;
@@ -369,18 +394,34 @@ namespace MAUI.Marker.ViewModels
             IsDetailsVisible = false;
             IsModulesVisible = false;
             IsModulesAddVisible = false;
+            IsModulesViewVisible = false;
             IsModulesEditVisible = true;
             IsRosterVisible = false;
             IsAssignmentsVisible = false;
             IsAssignmentsEditVisible = false;
             RefreshView();
-
         }
+        public void ShowModuleView()
+        {
+            // make new module equal the selected module
+            ContentItemSelectedModule = SelectedModule;
+            IsDetailsVisible = false;
+            IsModulesVisible = false;
+            IsModulesAddVisible = false;
+            IsModulesViewVisible = true;
+            IsModulesEditVisible = false;
+            IsRosterVisible = false;
+            IsAssignmentsVisible = false;
+            IsAssignmentsEditVisible = false;
+            RefreshView();
+        }
+
         public void ShowAssignmentEdit()
         {
             IsDetailsVisible = false;
             IsModulesVisible = false;
             IsModulesAddVisible = false;
+            IsModulesViewVisible = false;
             IsModulesEditVisible = false;
             IsRosterVisible = false;
             IsAssignmentsVisible = false;
@@ -392,6 +433,7 @@ namespace MAUI.Marker.ViewModels
             NotifyPropertyChanged(nameof(IsDetailsVisible));
             NotifyPropertyChanged(nameof(IsModulesVisible));
             NotifyPropertyChanged(nameof(IsModulesAddVisible));
+            NotifyPropertyChanged(nameof(IsModulesViewVisible));
             NotifyPropertyChanged(nameof(IsModulesEditVisible));
             NotifyPropertyChanged(nameof(IsRosterVisible));
             NotifyPropertyChanged(nameof(IsAssignmentsVisible));
@@ -411,6 +453,7 @@ namespace MAUI.Marker.ViewModels
             NotifyPropertyChanged(nameof(NewContentItemName));  
             NotifyPropertyChanged(nameof(NewContentItemDescription));  
             NotifyPropertyChanged(nameof(ModuleContent));
+            NotifyPropertyChanged(nameof(ContentItems));
         }
     }
 }
