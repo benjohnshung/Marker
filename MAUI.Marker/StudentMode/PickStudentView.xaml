@@ -7,8 +7,9 @@
              NavigatedFrom="ContentPage_NavigatedFrom">
     <VerticalStackLayout Padding="30,3" Spacing="25">
         <Label Text="Students" HorizontalOptions="Center"></Label>
+		<SearchBar Text="{Binding Query}" Placeholder="Search Students" TextChanged="SearchBarTextChanged" SearchButtonPressed="SearchClicked"/>
 
-        <ListView ItemsSource="{Binding Students}"
+		<ListView ItemsSource="{Binding Students}"
                   SelectedItem="{Binding SelectedStudent}">
         </ListView>
 

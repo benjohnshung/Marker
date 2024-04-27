@@ -1,5 +1,7 @@
 ﻿using Library.Marker.Models;
 using Library.Marker.Database;
+using Microsoft.EntityFrameworkCore;
+using System.Collections.ObjectModel;
 
 namespace Library.Marker.Services
 {
@@ -40,17 +42,16 @@ namespace Library.Marker.Services
             }
         }
 
-
+        public readonly AppDbContext _dbContext = new AppDbContext();
         private CourseService()
         {
-
         }
 
         public IEnumerable<Course> Courses
         {
             get
             {
-                return FakeDatabase.Courses;
+                return _dbContext.Courses;
             }
         }
 
@@ -66,17 +67,47 @@ namespace Library.Marker.Services
             if (courseToAdd.Id <= 0)
             {
                 courseToAdd.Id = LastId + 1;
-                FakeDatabase.Courses.Add(courseToAdd);
+                _dbContext.Courses.Add(courseToAdd);
+                _dbContext.SaveChanges();
             }
         }
         public void Delete(Course courseToDelete)
         {
-            FakeDatabase.Courses.Remove(courseToDelete);
+            _dbContext.Courses.Remove(courseToDelete);
+            _dbContext.SaveChanges();
         }
 
         public Course? Get(int id)
         {
-            return FakeDatabase.Courses.FirstOrDefault(c => c.Id == id);
+            return _dbContext.Courses.FirstOrDefault(c => c.Id == id);
+        }
+
+        public IEnumerable<Person> GetCourseRoster(Course course)
+        {
+            var entry = _dbContext.Entry(course);
+            entry.Collection(c => c.Roster).Load();
+            return entry.Entity.Roster;
+        }
+
+        public IEnumerable<Module> GetCourseModules(Course course)
+        {
+            var entry = _dbContext.Entry(course);
+            entry.Collection(c => c.Modules).Load();
+            return entry.Entity.Modules;
+        }
+
+        public IEnumerable<Assignment> GetCourseAssignments(Course course)
+        {
+            var entry = _dbContext.Entry(course);
+            entry.Collection(c => c.Assignments).Load();
+            return entry.Entity.Assignments;
+        }
+
+        public IEnumerable<Submission> GetAssignmentSubmissions(Assignment assignment)
+        {
+            var entry = _dbContext.Entry(assignment);
+            entry.Collection(a => a.Submissions).Load();
+            return entry.Entity.Submissions;
         }
     }
 }

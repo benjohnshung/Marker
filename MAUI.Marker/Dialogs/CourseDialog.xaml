@@ -190,10 +190,12 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
+                    <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
 
                 <Button WidthRequest="200" Grid.Column="0" Text="Add New Assignment" Clicked="AddAssignmentClicked"/>
-                <Button WidthRequest="200" Grid.Column="1" Text="Remove Assignment" Clicked="RemoveAssignmentClicked"/>
+                <Button WidthRequest="200" Grid.Column="1" Text="View Submissions" Clicked="ViewSubmissionsClicked"/>
+                <Button WidthRequest="200" Grid.Column="2" Text="Remove Assignment" Clicked="RemoveAssignmentClicked"/>
             </Grid>
             
             
@@ -228,6 +230,19 @@
             </Grid>
             <Button Text="Ok" Clicked="EditAssignmentOkClicked"/>
             <Button Text="Cancel" Clicked="EditAssignmentCancelClicked"/>
+        </VerticalStackLayout>
+        
+        <!--View Submissions View -->
+        <VerticalStackLayout Padding="20,5" Spacing="25" IsVisible="{Binding IsAssignmentsSubmissionVisible}">
+            <Label Text="{Binding SelectedAssignment.Name}" HorizontalOptions="Center"/>
+
+            <Entry Text="{Binding NewGrade}" Placeholder="Select Submission and Enter Grade"/>
+            <ListView ItemsSource="{Binding Submissions}" SelectedItem="{Binding SelectedSubmission}"></ListView>
+
+
+
+            <Button Text="Update" Clicked="UpdateSelectedSubmissionGradeClicked" WidthRequest="250"/>
+            <Button Text="Back" Clicked="EditAssignmentCancelClicked" WidthRequest="250"/>
         </VerticalStackLayout>
     </VerticalStackLayout>
     

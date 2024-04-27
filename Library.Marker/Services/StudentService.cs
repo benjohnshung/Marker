@@ -43,9 +43,10 @@ namespace Library.Marker.Services
         {
             get
             {
-                return FakeDatabase.Students;
+                return _dbContext.Students;
             }
         }
+        private readonly AppDbContext _dbContext = CourseService.Current._dbContext;
 
         private StudentService()
         {
@@ -62,20 +63,25 @@ namespace Library.Marker.Services
             if(studentToAdd.Id <= 0)
             {
                 studentToAdd.Id = LastId + 1;
-                FakeDatabase.Students.Add(studentToAdd);
+                _dbContext.Students.Add(studentToAdd);
+                _dbContext.SaveChanges();
             }
         }
 
         public void Delete(Person studentToDelete)
         {
-            FakeDatabase.Students.Remove(studentToDelete);
+            _dbContext.Students.Remove(studentToDelete);
+            _dbContext.SaveChanges();
         }
 
         public Person? GetById(int id)
         {
-            return FakeDatabase.Students.FirstOrDefault(s => s.Id == id);
+            return _dbContext.Students.FirstOrDefault(s => s.Id == id);
         }
 
-
+        public IEnumerable<Course> GetStudentCourses(Person student)
+        {
+            return _dbContext.Courses.Where(c => c.Roster.Contains(student));
+        }
     }
 }

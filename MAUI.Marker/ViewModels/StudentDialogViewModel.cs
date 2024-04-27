@@ -3,11 +3,13 @@ using Library.Marker.Models;
 using Library.Marker.Services;
 using System.Collections.ObjectModel;
 using System.Runtime.CompilerServices;
+using Library.Marker.Database;
 
 namespace MAUI.Marker.ViewModels
 {
     public class StudentDialogViewModel
     {
+        private AppDbContext dbContext = CourseService.Current._dbContext;
         private Person student;
         public string Name { 
             get { return student?.Name ?? string.Empty; }
@@ -58,6 +60,7 @@ namespace MAUI.Marker.ViewModels
                 student.Classification = StringToClass(ClassificationString);
                 StudentService.Current.AddOrUpdate(student);
             }
+            dbContext.SaveChanges();
         }
 
         private ClassificationType StringToClass(string s)

@@ -5,59 +5,75 @@
              Title="Student Courses"
              NavigatedTo="ContentPage_NavigatedTo"
              NavigatedFrom="ContentPage_NavigatedFrom">
-    <VerticalStackLayout>
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition Width="3*"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="5*"/>
-                <RowDefinition Height="5*"/>
-            </Grid.RowDefinitions>
+	<VerticalStackLayout>
+		<VerticalStackLayout IsVisible="{Binding DefaultViewVisible}">
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition/>
+					<ColumnDefinition Width="3*"/>
+				</Grid.ColumnDefinitions>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="5*"/>
+					<RowDefinition Height="5*"/>
+				</Grid.RowDefinitions>
 
-            <VerticalStackLayout Grid.Column="0">
-                <Label Text="Courses" Grid.Row="0" Grid.Column="0"/>
-                <ListView ItemsSource="{Binding StudentCourses}" SelectedItem="{Binding currentCourse}" Grid.Row="1" Grid.Column="0"></ListView>
-                <Button Text="Select Course" Clicked="CourseClicked" WidthRequest="150"/>
-            </VerticalStackLayout>
+				<VerticalStackLayout Grid.Column="0">
+					<Label Text="Courses" Grid.Row="0" Grid.Column="0"/>
+					<ListView ItemsSource="{Binding StudentCourses}" SelectedItem="{Binding currentCourse}" Grid.Row="1" Grid.Column="0"></ListView>
+					<Button Text="Select Course" Clicked="CourseClicked" WidthRequest="150"/>
+				</VerticalStackLayout>
 
-            <VerticalStackLayout Grid.Row="0" Grid.Column="1">
-                <Label Text="Modules" Grid.Row="0" Grid.Column="1"/>
-				
-                <ListView ItemsSource="{Binding CourseModules}" Grid.Row="1" Grid.Column="1">
-					<ListView.ItemTemplate>
-						<DataTemplate>
-							<ViewCell>
-								<StackLayout>
-                                    <Label Text="{Binding Name}" FontAttributes="Bold" FontSize="30"/>
-									<ListView ItemsSource="{Binding Content}">
-										<ListView.ItemTemplate>
-											<DataTemplate>
-												<ViewCell>
-													<StackLayout Margin="30,0,0,0">
-														<Label Text="{Binding Name}"/>
-													</StackLayout>
-												</ViewCell>
-											</DataTemplate>
-										</ListView.ItemTemplate>
-									</ListView>
-								</StackLayout>
-							</ViewCell>
-						</DataTemplate>
-					</ListView.ItemTemplate>
-				</ListView>
-				
-            </VerticalStackLayout>
+				<VerticalStackLayout Grid.Row="0" Grid.Column="1">
+					<Label Text="Modules" Grid.Row="0" Grid.Column="1"/>
 
-            <VerticalStackLayout Grid.Row="1" Grid.Column="1">
-                <Label Text="Assignments" Grid.Row="2" Grid.Column="1"/>
-                <ListView ItemsSource="{Binding CourseAssignments}" Grid.Row="3" Grid.Column="1"></ListView>
-                <Button Text="Select Assignment" Clicked="AssignmentClicked" WidthRequest="150"/>
-            </VerticalStackLayout>
+					<ListView ItemsSource="{Binding CourseModules}" Grid.Row="1" Grid.Column="1">
+						<ListView.ItemTemplate>
+							<DataTemplate>
+								<ViewCell>
+									<StackLayout>
+										<Label Text="{Binding Name}" FontAttributes="Bold" FontSize="30"/>
+										<ListView ItemsSource="{Binding Content}">
+											<ListView.ItemTemplate>
+												<DataTemplate>
+													<ViewCell>
+														<StackLayout Margin="30,0,0,0">
+															<Label Text="{Binding Name}"/>
+														</StackLayout>
+													</ViewCell>
+												</DataTemplate>
+											</ListView.ItemTemplate>
+										</ListView>
+									</StackLayout>
+								</ViewCell>
+							</DataTemplate>
+						</ListView.ItemTemplate>
+					</ListView>
 
-        </Grid>
+				</VerticalStackLayout>
 
-        <Button Text="Back" Clicked="BackClicked" WidthRequest="200"/>
-    </VerticalStackLayout>
+				<VerticalStackLayout Grid.Row="1" Grid.Column="1">
+					<Label Text="Assignments" Grid.Row="2" Grid.Column="1"/>
+					<ListView ItemsSource="{Binding CourseAssignments}" SelectedItem="{Binding SelectedAssignment}" Grid.Row="3" Grid.Column="1"></ListView>
+					<Button Text="Select Assignment" Clicked="AssignmentClicked" WidthRequest="150"/>
+				</VerticalStackLayout>
+
+
+			</Grid>
+
+			<Button Text="Back" Clicked="BackClicked" WidthRequest="200"/>
+		</VerticalStackLayout>
+
+		<!--Submit an Assignment-->
+		<VerticalStackLayout IsVisible="{Binding SubmitAssignmentViewVisible}" Padding="30,0"
+            Spacing="25">
+			<Label Text="Submit Assignment" FontAttributes="Bold" FontSize="30"/>
+			<Entry Text="{Binding SubmissionText}"></Entry>
+			<Button Text="Submit" Clicked="AssignmentSubmitClicked" WidthRequest="250"/>
+			<Button Text="Cancel" Clicked="AssignmentCancelClicked" WidthRequest="250"/>
+		</VerticalStackLayout>
+		
+		<!--Grade an Assignment-->
+	</VerticalStackLayout>
+
+
 </ContentPage>

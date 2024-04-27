@@ -11,6 +11,7 @@
                 Text="University Course List"
                 VerticalOptions="Center" 
                 HorizontalOptions="Center" />
+        <SearchBar Text="{Binding Query}" Placeholder="Search Students" TextChanged="SearchBarTextChanged" SearchButtonPressed="SearchClicked"/>
         <ListView
                 ItemsSource="{Binding Students}"
                 SelectedItem="{Binding SelectedStudent}">

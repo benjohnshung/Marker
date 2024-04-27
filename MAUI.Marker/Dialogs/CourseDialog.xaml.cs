@@ -1,4 +1,5 @@
-﻿using Library.Marker.Services;
+﻿using Library.Marker.Database;
+using Library.Marker.Services;
 using MAUI.Marker.ViewModels;
 
 namespace MAUI.Marker.Dialogs;
@@ -77,12 +78,22 @@ public partial class CourseDialog : ContentPage
         (BindingContext as CourseDialogViewModel)?.ShowAssignmentEdit();
     }
 
+    private void ViewSubmissionsClicked(object sender, EventArgs e)
+    {
+        (BindingContext as CourseDialogViewModel)?.ShowAssignmentSubmissions();
+    }
+
+    private void UpdateSelectedSubmissionGradeClicked(object sender, EventArgs e)
+    {
+        (BindingContext as CourseDialogViewModel)?.UpdateGrade();
+    }
+
     private void RemoveAssignmentClicked(object sender, EventArgs e)
     {
         (BindingContext as CourseDialogViewModel)?.RemoveAssignment();
         (BindingContext as CourseDialogViewModel)?.RefreshView();
     }
-    
+
     private void EditAssignmentOkClicked(object sender, EventArgs e)
     {
         (BindingContext as CourseDialogViewModel)?.AddAssignment();
@@ -118,7 +129,7 @@ public partial class CourseDialog : ContentPage
     private void RemoveModuleClicked(object sender, EventArgs e)
     {
         (BindingContext as CourseDialogViewModel)?.RemoveModule();
-        (BindingContext as CourseDialogViewModel)?.RefreshView(); 
+        (BindingContext as CourseDialogViewModel)?.RefreshView();
     }
 
     private void AddNewModuleOkClicked(object sender, EventArgs e)

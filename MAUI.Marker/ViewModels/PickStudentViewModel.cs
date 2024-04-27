@@ -27,7 +27,7 @@ public class PickStudentViewModel : INotifyPropertyChanged
     {
         get
         {
-            return new ObservableCollection<Person>(StudentService.Current.Students);
+            return new ObservableCollection<Person>(StudentService.Current.Students.ToList().Where(c => c.Name.Contains(Query ?? "")));
         }
     }
     public Person SelectedStudent { get; set; }
@@ -50,6 +50,8 @@ public class PickStudentViewModel : INotifyPropertyChanged
         NotifyPropertyChanged(nameof(Students));
         NotifyPropertyChanged(nameof(SelectedStudent));
     }
+
+    public string Query { get; set; }
 
 
 

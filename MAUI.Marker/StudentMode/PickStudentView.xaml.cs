@@ -39,4 +39,13 @@ public partial class PickStudentView : ContentPage
     {
         Shell.Current.GoToAsync("//MainPage");
     }
+
+    private void SearchClicked(object sender, EventArgs e)
+    {
+    }
+
+    private void SearchBarTextChanged(object sender, TextChangedEventArgs e)
+    {
+        (BindingContext as PickStudentViewModel)?.RefreshView();
+    }
 }

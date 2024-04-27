@@ -42,4 +42,13 @@ public partial class StudentView : ContentPage
         (BindingContext as StudentViewModel)?.ResetView();
         (BindingContext as StudentViewModel)?.RefreshView();
     }
+
+    private void SearchClicked(object sender, EventArgs e)
+    {
+    }
+
+    private void SearchBarTextChanged(object sender, TextChangedEventArgs e)
+    {
+        (BindingContext as StudentViewModel)?.RefreshView();
+    }
 }

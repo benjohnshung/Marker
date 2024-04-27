@@ -1,4 +1,5 @@
-﻿using Library.Marker.Models;
+﻿using Library.Marker.Database;
+using Library.Marker.Models;
 using Library.Marker.Services;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -20,7 +21,7 @@ namespace MAUI.Marker.ViewModels
         {
             get
             {
-                return new ObservableCollection<Course>(CourseService.Current.Courses);
+                return new ObservableCollection<Course>(CourseService.Current.Courses.ToList().Where(c => c.Name.Contains(Query ?? "")));
             }
         }
         public void ShowCourses()
@@ -40,8 +41,8 @@ namespace MAUI.Marker.ViewModels
 
         public void ResetView()
         {
-            //Query = string.Empty;
-            //NotifyPropertyChanged(nameof(Query));
+            Query = string.Empty;
+            NotifyPropertyChanged(nameof(Query));
         }
 
         public void RefreshView()
@@ -49,5 +50,7 @@ namespace MAUI.Marker.ViewModels
             NotifyPropertyChanged(nameof(Courses));
             NotifyPropertyChanged(nameof(SelectedCourse));
         }
+
+        public string Query { get; set; }
     }
 }

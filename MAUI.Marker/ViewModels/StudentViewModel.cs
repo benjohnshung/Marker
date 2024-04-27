@@ -20,7 +20,7 @@ namespace MAUI.Marker.ViewModels
         {
             get
             {
-                return new ObservableCollection<Person>(StudentService.Current.Students);
+                return new ObservableCollection<Person>(StudentService.Current.Students.ToList().Where(c => c.Name.Contains(Query ?? "")));
             }
         }
         public void ShowStudents()
@@ -36,13 +36,15 @@ namespace MAUI.Marker.ViewModels
         }
         public void ResetView()
         {
-            //Query = string.Empty;
-            //NotifyPropertyChanged(nameof(Query));
+            Query = string.Empty;
+            NotifyPropertyChanged(nameof(Query));
         }
         public void RefreshView()
         {
             NotifyPropertyChanged(nameof(Students));
             NotifyPropertyChanged(nameof(SelectedStudent));
         }
+
+        public string Query { get; set; }
     }
 }

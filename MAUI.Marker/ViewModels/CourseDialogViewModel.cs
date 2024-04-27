@@ -7,6 +7,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Library.Marker.Database;
 using Library.Marker.Models;
 using Library.Marker.Services;
 
@@ -14,6 +15,7 @@ namespace MAUI.Marker.ViewModels
 {
     public class CourseDialogViewModel : INotifyPropertyChanged
     {
+        private AppDbContext dbContext = CourseService.Current._dbContext;
         // Constructor
         public CourseDialogViewModel(int cId)
         {
@@ -67,6 +69,7 @@ namespace MAUI.Marker.ViewModels
             {
                 CourseService.Current.AddOrUpdate(course);
             }
+            dbContext.SaveChanges();
         }
 
         // Roster Details
@@ -76,7 +79,7 @@ namespace MAUI.Marker.ViewModels
         {
             get
             {
-                return new ObservableCollection<Person>(course.Roster ?? []);
+                return new ObservableCollection<Person>(CourseService.Current.GetCourseRoster(course));
             }
         }
         public ObservableCollection<Person> Students
@@ -94,6 +97,7 @@ namespace MAUI.Marker.ViewModels
                 course.Roster?.Add(SelectedStudent);
                 SelectedStudent.CurrentCourses.Add(course);
             }
+            dbContext.SaveChanges();
         }
 
         public void RemoveStudentFromCourse()
@@ -101,7 +105,9 @@ namespace MAUI.Marker.ViewModels
             if(course != null && RosterSelected != null)
             {
                 course.Roster?.Remove(RosterSelected);
+                RosterSelected.CurrentCourses.Remove(course);
             }
+            dbContext.SaveChanges();
         }
 
         // Module Details
@@ -112,7 +118,7 @@ namespace MAUI.Marker.ViewModels
         {
             get
             {
-                return new ObservableCollection<Module>(course.Modules ?? []);
+                return new ObservableCollection<Module>(CourseService.Current.GetCourseModules(course));
             }
         }
 
@@ -124,9 +130,10 @@ namespace MAUI.Marker.ViewModels
             {
                 course.Modules?.Remove(SelectedModule);
             }
+            dbContext.SaveChanges();
         }
 
-            // Add Module view
+        // Add Module view
         private Module module;
         public string NewModuleName
         {
@@ -161,6 +168,7 @@ namespace MAUI.Marker.ViewModels
             NewModuleName = string.Empty;
             NewModuleDescription = string.Empty;
             RefreshView();
+            dbContext.SaveChanges();
         }
         // Edit Module view
         public string NewContentItemName { get; set; }
@@ -187,6 +195,7 @@ namespace MAUI.Marker.ViewModels
             NewContentItemName = string.Empty;
             NewContentItemDescription = string.Empty;
             RefreshView();
+            dbContext.SaveChanges();
         }
 
         // View Module Content Items
@@ -216,7 +225,15 @@ namespace MAUI.Marker.ViewModels
         {
             get
             {
-                return new ObservableCollection<Assignment>(course.Assignments ?? []);
+                return new ObservableCollection<Assignment>(CourseService.Current.GetCourseAssignments(course));
+            }
+        }
+
+        public ObservableCollection<Submission> Submissions
+        {
+            get
+            {
+                return new ObservableCollection<Submission>(CourseService.Current.GetAssignmentSubmissions(SelectedAssignment));
             }
         }
 
@@ -226,6 +243,7 @@ namespace MAUI.Marker.ViewModels
             {
                 course.Assignments?.Remove(SelectedAssignment);
             }
+            dbContext.SaveChanges();
         }
 
         private Assignment newAssignment;
@@ -293,13 +311,22 @@ namespace MAUI.Marker.ViewModels
                 newAssignment.DueDate = newAssignmentDueDate;
                 course.Assignments.Add(newAssignment);
             }
+            dbContext.SaveChanges();
         }
 
+        public int NewGrade { get; set; }  
+        public Submission SelectedSubmission { get; set; }
 
+        public void UpdateGrade()
+        {
+            if (SelectedSubmission != null)
+            {
+                SelectedSubmission.Grade = NewGrade;
+            }
+            NotifyPropertyChanged(nameof(Submissions));
 
-
-
-
+            dbContext.SaveChanges();
+        }
 
         // INotifyPropertyChanged implementation
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -316,6 +343,7 @@ namespace MAUI.Marker.ViewModels
         public bool IsRosterVisible { get; set; }
         public bool IsAssignmentsVisible { get; set; }
         public bool IsAssignmentsEditVisible { get; set; }
+        public bool IsAssignmentsSubmissionVisible { get; set; }
 
         public void ShowDetails()
         {
@@ -330,6 +358,7 @@ namespace MAUI.Marker.ViewModels
             
             IsAssignmentsVisible = false;
             IsAssignmentsEditVisible = false;
+            IsAssignmentsSubmissionVisible = false;
 
             RefreshView();
         }
@@ -343,6 +372,7 @@ namespace MAUI.Marker.ViewModels
             IsRosterVisible = false;
             IsAssignmentsVisible = false;
             IsAssignmentsEditVisible = false;
+            IsAssignmentsSubmissionVisible = false;
             RefreshView();
 
         }
@@ -356,6 +386,7 @@ namespace MAUI.Marker.ViewModels
             IsRosterVisible = true;
             IsAssignmentsVisible = false;
             IsAssignmentsEditVisible = false;
+            IsAssignmentsSubmissionVisible = false;
             RefreshView();
 
         }
@@ -369,6 +400,7 @@ namespace MAUI.Marker.ViewModels
             IsRosterVisible = false;
             IsAssignmentsVisible = true;
             IsAssignmentsEditVisible = false;
+            IsAssignmentsSubmissionVisible = false;
             RefreshView();
 
         }
@@ -383,6 +415,7 @@ namespace MAUI.Marker.ViewModels
             IsRosterVisible = false;
             IsAssignmentsVisible = false;
             IsAssignmentsEditVisible = false;
+            IsAssignmentsSubmissionVisible = false;
             RefreshView();
 
         }
@@ -399,6 +432,7 @@ namespace MAUI.Marker.ViewModels
             IsRosterVisible = false;
             IsAssignmentsVisible = false;
             IsAssignmentsEditVisible = false;
+            IsAssignmentsSubmissionVisible = false;
             RefreshView();
         }
         public void ShowModuleView()
@@ -413,6 +447,7 @@ namespace MAUI.Marker.ViewModels
             IsRosterVisible = false;
             IsAssignmentsVisible = false;
             IsAssignmentsEditVisible = false;
+            IsAssignmentsSubmissionVisible = false;
             RefreshView();
         }
 
@@ -426,6 +461,21 @@ namespace MAUI.Marker.ViewModels
             IsRosterVisible = false;
             IsAssignmentsVisible = false;
             IsAssignmentsEditVisible = true;
+            IsAssignmentsSubmissionVisible = false;
+            RefreshView();
+        }
+
+        public void ShowAssignmentSubmissions()
+        {
+            IsDetailsVisible = false;
+            IsModulesVisible = false;
+            IsModulesAddVisible = false;
+            IsModulesViewVisible = false;
+            IsModulesEditVisible = false;
+            IsRosterVisible = false;
+            IsAssignmentsVisible = false;
+            IsAssignmentsEditVisible = false;
+            IsAssignmentsSubmissionVisible = true; //TODO: Implement this
             RefreshView();
         }
         public void RefreshView()
@@ -438,6 +488,7 @@ namespace MAUI.Marker.ViewModels
             NotifyPropertyChanged(nameof(IsRosterVisible));
             NotifyPropertyChanged(nameof(IsAssignmentsVisible));
             NotifyPropertyChanged(nameof(IsAssignmentsEditVisible));
+            NotifyPropertyChanged(nameof(IsAssignmentsSubmissionVisible));
 
             NotifyPropertyChanged(nameof(Roster));
             NotifyPropertyChanged(nameof(Students));
@@ -447,6 +498,7 @@ namespace MAUI.Marker.ViewModels
 
             NotifyPropertyChanged(nameof(Assignments));
             NotifyPropertyChanged(nameof(SelectedAssignment));
+            NotifyPropertyChanged(nameof(Submissions));
 
             NotifyPropertyChanged(nameof(Modules));
             //NotifyPropertyChanged(nameof(SelectedModule));  
@@ -454,6 +506,7 @@ namespace MAUI.Marker.ViewModels
             NotifyPropertyChanged(nameof(NewContentItemDescription));  
             NotifyPropertyChanged(nameof(ModuleContent));
             NotifyPropertyChanged(nameof(ContentItems));
+            dbContext.SaveChanges();
         }
     }
 }
