@@ -84,13 +84,21 @@ namespace Library.Marker.Services
 
         public IEnumerable<Person> GetCourseRoster(Course course)
         {
+            if (course == null)
+            {
+                return new Collection<Person>();
+            }
             var entry = _dbContext.Entry(course);
             entry.Collection(c => c.Roster).Load();
             return entry.Entity.Roster;
         }
-
+        
         public IEnumerable<Module> GetCourseModules(Course course)
         {
+            if (course == null)
+            {
+                return new Collection<Module>();
+            }
             var entry = _dbContext.Entry(course);
             entry.Collection(c => c.Modules).Load();
             return entry.Entity.Modules;
@@ -98,6 +106,10 @@ namespace Library.Marker.Services
 
         public IEnumerable<Assignment> GetCourseAssignments(Course course)
         {
+            if(course == null)
+            {
+                return new Collection<Assignment>();
+            }
             var entry = _dbContext.Entry(course);
             entry.Collection(c => c.Assignments).Load();
             return entry.Entity.Assignments;
@@ -105,6 +117,10 @@ namespace Library.Marker.Services
 
         public IEnumerable<Submission> GetAssignmentSubmissions(Assignment assignment)
         {
+            if (assignment == null)
+            {
+                return new Collection<Submission>();
+            }
             var entry = _dbContext.Entry(assignment);
             entry.Collection(a => a.Submissions).Load();
             return entry.Entity.Submissions;

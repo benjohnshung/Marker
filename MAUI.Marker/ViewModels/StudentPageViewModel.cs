@@ -100,7 +100,6 @@ internal class StudentPageViewModel : INotifyPropertyChanged
         get
         {
             return new ObservableCollection<Course>(StudentService.Current.GetStudentCourses(currentStudent));
-            //return new ObservableCollection<Course>(currentStudent.CurrentCourses);
         }
     }
 
